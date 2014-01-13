@@ -20,7 +20,7 @@ COMMUNICATION PLAN
 Our team is using a Facebook group for general communication and notifications while using GitHub for sharing code and editing group files/submissions. 
 
 ACTION PLAN
-Action              Person Resposible          Time Frame
+-Action             -Person Resposible        -Time Frame
 
 Interface Design    Chou Yang                 
 Database Design     Chou Yang   

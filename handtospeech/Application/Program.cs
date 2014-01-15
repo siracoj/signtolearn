@@ -14,9 +14,9 @@ namespace Application
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            global::System.Windows.Forms.Application.EnableVisualStyles();
+            global::System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            global::System.Windows.Forms.Application.Run(new Form1());
         }
     }
 }

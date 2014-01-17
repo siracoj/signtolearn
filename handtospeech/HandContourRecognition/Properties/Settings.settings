@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HandContourRecognition.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SenssorConfigFileLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SensorConfig.xml</Value>
+    </Setting>
+    <Setting Name="SenssorImageGeneratorNodeName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Image1</Value>
+    </Setting>
+    <Setting Name="SenssorDepthGeneratorNodeName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Depth1</Value>
+    </Setting>
+    <Setting Name="SenssorIRGeneratorNodeName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">IR1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,4 +1,4 @@
-handtospeech
+SignToLearn
 ============
 An application that can translate the American Sign-Language (ASL) alphabet into text. 
 

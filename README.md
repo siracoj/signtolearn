@@ -1,6 +1,5 @@
 SignToLearn
 ============
-An application that can translate the American Sign-Language (ASL) alphabet into text. 
+SignToLearn is an application working with the Microsoft Kinect camera to teach users the American Sign Language (ASL) alphabet. The user will have to sign letters as instructed by SignToLearn at defined intervals. Data gathered by the Kinect camera would check the users’ accuracy.
 
-Made for users unable to communicate through vocal speech, such as the mute and/or deaf, will be able to use this application to communicate to blind users or users who do not understand ASL. This communication will be through letter hand signs catptured in defined intervals.
 

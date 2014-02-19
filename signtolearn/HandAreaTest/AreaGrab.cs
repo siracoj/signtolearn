@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 
 namespace HandAreaTest
 {
-    class AreaGrab
-    {
+
+    class AreaGrab{
 
         static void Main(string[] args)
         {
@@ -31,7 +31,8 @@ namespace HandAreaTest
             {
                 var hand = data.Hands[index];
                 IList<Point> points = hand.Contour.Points;
-                float x = points[0].X;
+                Console.WriteLine(points[0].X + points[0].Y + points[0].Z);
+
             }
         }
     }

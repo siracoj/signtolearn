@@ -10,6 +10,8 @@ namespace ConsoleTester
     {
         static void Main(string[] args)
         {
+            DAL.Alphabet.GetLetterInfo('A');
+            Console.Read();
         }
     }
 }

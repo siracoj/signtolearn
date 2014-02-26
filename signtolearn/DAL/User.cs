@@ -18,7 +18,7 @@ namespace DAL
         }
 
         public static List<String> GetUserNames()
-        {
+        {   //this function would be good to use to populate a login screen of user names
             List<String> retVal = new List<String>();
             SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
             Conn.Open();
@@ -35,13 +35,25 @@ namespace DAL
         }
 
         public static String GetFirstName(String UserName)
-        {
+        {   //this function can get the first name of someone based on their user name. can be used for like a welcome screen or something when they log in
             SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
             Conn.Open();
             SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName from User WHHERE UserName = '{0}'", UserName), Conn);
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             String retVal = reader[0].ToString();
+            Conn.Close();
+            return retVal;
+        }
+
+        public static char GetProgress(String UserName)
+        {   //this function gets the current progress the user has calibrated to. check if they are fully calibrated before letting them progress
+            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+            Conn.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from User WHHERE UserName = '{0}'", UserName), Conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            char retVal = char.Parse(reader[0].ToString());
             Conn.Close();
             return retVal;
         }

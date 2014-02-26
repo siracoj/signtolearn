@@ -17,89 +17,44 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public static SignInfo GetSign(String UserName, char Letter)
-        {
+        public static SignInfo GetSignInfo(String UserName, char Letter)
+        {   //gets all of the calibrated and uncalibrated info to match a sign
             SqlConnection conn = new SqlConnection(GetSQLConnectionString());
             conn.Open();
-            SqlCommand cmd = new SqlCommand(String.Format("SELECT Letter, UserName, Percentage, NumFingers, ClosestPoint, Area from Sign where UserName = '{0}' and Letter = '{1}'", UserName, Letter), conn);
+            SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
+            cmd.Parameters.AddWithValue("@username", UserName);
+            cmd.Parameters.AddWithValue("@letter", Letter);
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-            Letter = Char.Parse(reader[0].ToString());
-            UserName = reader[1].ToString();
-            double Percentage = Double.Parse(reader[2].ToString());
-            int NumFingers = Int32.Parse(reader[3].ToString());
-            double ClosestPoint = Double.Parse(reader[4].ToString());
-            double Area = Double.Parse(reader[5].ToString());
+            double Percentage = Double.Parse(reader[0].ToString());
+            int NumFingers = Int32.Parse(reader[1].ToString());
+            double ClosestPoint = Double.Parse(reader[2].ToString());
+            double Area = Double.Parse(reader[3].ToString());
             conn.Close();
             return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
         }
 
-        public static void AddSign(char Letter, String UserName, double Percentage, int NumFingers, double ClosestPoint, double Area)
+        public static void AddSign(char Letter, String UserName, double Area)
         {
             SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Percentage, NumFingers, ClosestPoint, Area) VALUES (@letter, @username, @percentage, @numfingers, @closestpoint, @area)", conn);
+            SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
             cmd.Parameters.AddWithValue("@letter", Letter);
             cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@percentage", Percentage);
-            cmd.Parameters.AddWithValue("@numfingers", NumFingers);
-            cmd.Parameters.AddWithValue("@closestpoint", ClosestPoint);
             cmd.Parameters.AddWithValue("@area", Area);
             cmd.ExecuteScalar();
             conn.Close();
         }
-
-        public static void AddSign(SignInfo Input)
-        {
-            AddSign(Input.Letter, Input.UserName, Input.Percentage, Input.NumFingers, Input.ClosestPoint, Input.Area);
-        }
     }
 
-    public class SignInfo
+    public class SignInfo : AlphabetInfo
     {
-        public SignInfo(char _Letter, String _UserName, double _Percentage, int _NumFingers, double _ClosestPoint, double _Area)
+        public SignInfo(char _Letter, String _UserName, double _Percentage, int _NumFingers, double _ClosestPoint, double _Area) : base(_Letter, _NumFingers, _ClosestPoint, _Percentage)
         {
-            Letter = _Letter;
             UserName = _UserName;
-            Percentage = _Percentage;
-            NumFingers = _NumFingers;
-            ClosestPoint = _ClosestPoint;
             Area = _Area;
         }
 
-        public char Letter
-        {
-            get;
-            private set;
-        }
-
-        public String UserName
-        {
-            get;
-            private set;
-        }
-
-        public double Percentage
-        {
-            get;
-            private set;
-        }
-
-        public int NumFingers
-        {
-            get;
-            private set;
-        }
-
-        public double ClosestPoint
-        {
-            get;
-            private set;
-        }
-
-        public double Area
-        {
-            get;
-            private set;
-        }
+        public String UserName { get; private set; }
+        public double Area { get; private set; }
     }
 }

@@ -68,32 +68,38 @@ namespace DAL
 
         public char Letter
         {
-            private set { }
+            get;
+            private set;
         }
 
         public String UserName
         {
-            private set { }
+            get;
+            private set;
         }
 
         public double Percentage
         {
-            private set { }
+            get;
+            private set;
         }
 
         public int NumFingers
         {
-            private set { }
+            get;
+            private set;
         }
 
         public double ClosestPoint
         {
-            private set { }
+            get;
+            private set;
         }
 
         public double Area
         {
-            private set { }
+            get;
+            private set;
         }
     }
 }

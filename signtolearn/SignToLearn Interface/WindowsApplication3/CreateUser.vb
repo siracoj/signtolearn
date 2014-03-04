@@ -7,4 +7,8 @@
     Private Sub buttonConfirmCreateUser_Click(sender As Object, e As EventArgs) Handles buttonConfirmCreateUser.Click
 
     End Sub
+
+    Private Sub CreateUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

@@ -56,6 +56,7 @@ Partial Class CreateUser
         '
         'textBoxUsername
         '
+        Me.textBoxUsername.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.textBoxUsername.Font = New System.Drawing.Font("café & brewery", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textBoxUsername.Location = New System.Drawing.Point(30, 73)
         Me.textBoxUsername.Name = "textBoxUsername"

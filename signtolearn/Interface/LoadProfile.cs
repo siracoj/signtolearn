@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Interface
 {
-    public partial class SignToLearn : Form
+    public partial class LoadProfile : Form
     {
-        public SignToLearn()
+        public LoadProfile()
         {
             InitializeComponent();
         }

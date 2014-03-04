@@ -50,11 +50,11 @@
     <Compile Include="CreateProfile.Designer.cs">
       <DependentUpon>CreateProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="SignToLearn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SignToLearn.Designer.cs">
+      <DependentUpon>SignToLearn.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadProfile.cs">
       <SubType>Form</SubType>
@@ -79,8 +79,8 @@
     <EmbeddedResource Include="CreateProfile.resx">
       <DependentUpon>CreateProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="SignToLearn.resx">
+      <DependentUpon>SignToLearn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadProfile.resx">
       <DependentUpon>LoadProfile.cs</DependentUpon>
@@ -112,6 +112,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d527fa5e-ea3b-4448-9a8d-48be33c5add8}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{e2491798-fb6d-4d6b-82c1-2559533f90f0}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -24,7 +24,7 @@ namespace DAL
             List<String> retVal = new List<String>();
             SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
             Conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT UserName from User", Conn);
+            SqlCommand cmd = new SqlCommand("SELECT UserName from [User]", Conn);
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())

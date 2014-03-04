@@ -59,22 +59,13 @@
             // listBoxProfiles
             // 
             this.listBoxProfiles.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.listBoxProfiles.Font = new System.Drawing.Font("café & brewery", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxProfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxProfiles.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listBoxProfiles.FormattingEnabled = true;
-            this.listBoxProfiles.ItemHeight = 23;
-            this.listBoxProfiles.Items.AddRange(new object[] {
-            "Jared Wilhelm Siraco",
-            "Garrett Lister",
-            "Chou Geena Yang",
-            "Chris Streeks",
-            "Joe Biden",
-            "Barack Obama",
-            "Leslie Knope",
-            "Ben Wyatt"});
+            this.listBoxProfiles.ItemHeight = 24;
             this.listBoxProfiles.Location = new System.Drawing.Point(12, 12);
             this.listBoxProfiles.Name = "listBoxProfiles";
-            this.listBoxProfiles.Size = new System.Drawing.Size(429, 96);
+            this.listBoxProfiles.Size = new System.Drawing.Size(429, 76);
             this.listBoxProfiles.TabIndex = 3;
             // 
             // LoadProfile

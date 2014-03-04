@@ -15,6 +15,11 @@ namespace Interface
         public LoadProfile()
         {
             InitializeComponent();
+
+            foreach (String s in DAL.User.GetUserNames())
+            {
+                listBoxProfiles.Items.Add(s);
+            }
         }
     }
 }

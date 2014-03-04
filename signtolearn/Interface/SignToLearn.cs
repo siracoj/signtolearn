@@ -19,7 +19,9 @@ namespace Interface
 
         private void buttonLoadProfile_Click(object sender, EventArgs e)
         {
-
+            LoadProfile LP = new LoadProfile();
+            //this.Hide();
+            LP.Show();
         }
     }
 }

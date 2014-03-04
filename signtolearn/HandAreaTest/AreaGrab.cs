@@ -15,8 +15,8 @@ namespace HandSigns
 
     class AreaGrab{
         //Properties 
-        float areaPercentage = 0;
-        float openHand = 1;
+        float signPercentage = 0;
+        private float openHand = 1;
 
 
         void Start() // Grabbing data
@@ -29,9 +29,9 @@ namespace HandSigns
             
         }
 
-        float getAreaPercentage()
+        float getSignPercentage()
         {
-            return areaPercentage;
+            return signPercentage;
         }
 
         private void handDataSource_NewDataAvailable(HandCollection data)
@@ -41,11 +41,11 @@ namespace HandSigns
                 var hand = data.Hands[index];
                 IList<Point> points = hand.Contour.Points;
                 if (hand.FingerCount == 5){ //Takes the area of an open hand(when five fingers are detected)
-                    openHand = initialHandArea(points);
+                    openHand = boundingBoxArea(points);
                     
                 }else{
                     float per = handArea(points) / openHand;
-                    areaPercentage = per;
+                    signPercentage = per;
                     Console.WriteLine(per);
                 }
             }
@@ -61,7 +61,7 @@ namespace HandSigns
             return area / 2;
         }
 
-        private float initialHandArea(IList<Point> points) //Gets the square around the users hand 
+        private float boundingBoxArea(IList<Point> points) //Gets the square around the users hand 
         {
             Point minX = points[0], minY = points[0], maxX = points[0], maxY = points[0];
             IList<Point> square = new List<Point>();

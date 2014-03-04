@@ -77,7 +77,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1167, 651);
+            this.ClientSize = new System.Drawing.Size(1166, 655);
             this.Controls.Add(this.LabelLetter);
             this.Controls.Add(this.buttonSaveExit);
             this.Controls.Add(this.LabelShowMe);

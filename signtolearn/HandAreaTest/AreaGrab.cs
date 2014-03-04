@@ -10,12 +10,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandAreaTest
+namespace HandSigns
 {
 
     class AreaGrab{
-        static float openHand = 1;
-        static void Main(string[] args)
+        //Properties 
+        float areaPercentage = 0;
+        float openHand = 1;
+
+
+        void Start() // Grabbing data
         {
             IDataSourceFactory dataSourceFactory = new SDKDataSourceFactory();
             var handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
@@ -25,22 +29,29 @@ namespace HandAreaTest
             
         }
 
-        static void handDataSource_NewDataAvailable(HandCollection data){
-            
+        float getAreaPercentage()
+        {
+            return areaPercentage;
+        }
 
+        private void handDataSource_NewDataAvailable(HandCollection data)
+        {
+            
             for (int index = 0; index < data.Count; index++){
                 var hand = data.Hands[index];
                 IList<Point> points = hand.Contour.Points;
-                if (hand.FingerCount == 5){
+                if (hand.FingerCount == 5){ //Takes the area of an open hand(when five fingers are detected)
                     openHand = initialHandArea(points);
                     
                 }else{
                     float per = handArea(points) / openHand;
+                    areaPercentage = per;
                     Console.WriteLine(per);
                 }
             }
         }
-        static float handArea(IList<Point> points){
+        private float handArea(IList<Point> points) // Takes the points of the contour of the hand and finds its area
+        {
             float area = 0;
             int j = points.Count - 1;
             for (int i = 0; i < points.Count; i++){
@@ -49,7 +60,8 @@ namespace HandAreaTest
             }
             return area / 2;
         }
-        static float initialHandArea(IList<Point> points)
+
+        private float initialHandArea(IList<Point> points) //Gets the square around the users hand 
         {
             Point minX = points[0], minY = points[0], maxX = points[0], maxY = points[0];
             IList<Point> square = new List<Point>();

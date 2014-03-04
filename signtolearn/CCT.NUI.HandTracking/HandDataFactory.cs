@@ -6,7 +6,7 @@ using Microsoft.Kinect;
 using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 using CCT.NUI.Core.Shape;
-using CCT.NUI.Core.OpenNI;
+
 using CCT.NUI.KinectSDK;
 
 namespace CCT.NUI.HandTracking
@@ -17,7 +17,6 @@ namespace CCT.NUI.HandTracking
         private ShapeDataSourceSettings shapeSettings;
         private HandDataSourceSettings handSettings;
 
-        private IDepthPointFilter<IntPtr> filter;
         private ImageFrameDepthPointFilter sdkFilter;
 
         private IClusterFactory clusterFactory;
@@ -35,8 +34,7 @@ namespace CCT.NUI.HandTracking
             this.handSettings = handSettings;
 
             this.clusterFactory = new KMeansClusterFactory(this.clusteringSettings, size);
-            this.filter = new PointerDepthPointFilter(size, this.clusteringSettings.MinimumDepthThreshold, this.clusteringSettings.MaximumDepthThreshold, this.clusteringSettings.LowerBorder);
-
+            
             this.shapeFactory = new ClusterShapeFactory(this.shapeSettings);
             this.handFactory = new ShapeHandDataFactory(this.handSettings);
         }

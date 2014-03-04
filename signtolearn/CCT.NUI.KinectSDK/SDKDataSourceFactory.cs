@@ -6,7 +6,6 @@ using Microsoft.Kinect;
 using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 using CCT.NUI.Core.Shape;
-using CCT.NUI.Core.Video;
 
 namespace CCT.NUI.KinectSDK
 {
@@ -25,25 +24,8 @@ namespace CCT.NUI.KinectSDK
 
         private KinectSensorAdapter Adapter { get; set; }
 
-        public IImageDataSource CreateRGBImageDataSource()
-        {
-            return new SDKRgbImageDataSource(this.Adapter);
-        }
 
-        public IImageDataSource CreateDepthImageDataSource()
-        {
-            return new SDKDepthImageDataSource(this.Adapter);
-        }
-
-        public IBitmapDataSource CreateRGBBitmapDataSource()
-        {
-            return new SDKRgbBitmapDataSource(this.Adapter);
-        }
-
-        public IBitmapDataSource CreateDepthBitmapDataSource()
-        {
-            return new SDKDepthBitmapDataSource(this.Adapter);
-        }
+      
 
         public IClusterDataSource CreateClusterDataSource(ClusterDataSourceSettings clusterDataSourceSettings)
         {

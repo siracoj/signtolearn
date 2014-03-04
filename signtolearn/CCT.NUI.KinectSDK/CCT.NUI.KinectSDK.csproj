@@ -54,14 +54,8 @@
     <Compile Include="KinectSensorAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SensorDataSource.cs" />
-    <Compile Include="SDKBitmapDataSource.cs" />
     <Compile Include="SDKClusterDataSource.cs" />
     <Compile Include="SDKDataSourceFactory.cs" />
-    <Compile Include="SDKDepthBitmapDataSource.cs" />
-    <Compile Include="SDKDepthImageDataSource.cs" />
-    <Compile Include="SDKImageDataSource.cs" />
-    <Compile Include="SDKRgbBitmapDataSource.cs" />
-    <Compile Include="SDKRgbImageDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCT.NUI.Core\CCT.NUI.Core.csproj">

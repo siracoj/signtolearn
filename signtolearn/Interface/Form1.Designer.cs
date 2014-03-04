@@ -58,6 +58,7 @@
             this.buttonLoadProfile.Size = new System.Drawing.Size(292, 85);
             this.buttonLoadProfile.TabIndex = 3;
             this.buttonLoadProfile.UseVisualStyleBackColor = true;
+            this.buttonLoadProfile.Click += new System.EventHandler(this.buttonLoadProfile_Click);
             // 
             // PictureBox1
             // 

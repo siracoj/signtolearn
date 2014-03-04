@@ -16,5 +16,10 @@ namespace Interface
         {
             InitializeComponent();
         }
+
+        private void buttonLoadProfile_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

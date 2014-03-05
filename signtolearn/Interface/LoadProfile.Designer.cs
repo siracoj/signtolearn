@@ -39,7 +39,7 @@
             this.buttonConfirmLoadProfile.FlatAppearance.BorderSize = 0;
             this.buttonConfirmLoadProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonConfirmLoadProfile.Image = ((System.Drawing.Image)(resources.GetObject("buttonConfirmLoadProfile.Image")));
-            this.buttonConfirmLoadProfile.Location = new System.Drawing.Point(248, 132);
+            this.buttonConfirmLoadProfile.Location = new System.Drawing.Point(248, 124);
             this.buttonConfirmLoadProfile.Name = "buttonConfirmLoadProfile";
             this.buttonConfirmLoadProfile.Size = new System.Drawing.Size(193, 51);
             this.buttonConfirmLoadProfile.TabIndex = 5;
@@ -51,7 +51,7 @@
             this.cancelLoadProfile.FlatAppearance.BorderSize = 0;
             this.cancelLoadProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelLoadProfile.Image = ((System.Drawing.Image)(resources.GetObject("cancelLoadProfile.Image")));
-            this.cancelLoadProfile.Location = new System.Drawing.Point(12, 132);
+            this.cancelLoadProfile.Location = new System.Drawing.Point(12, 124);
             this.cancelLoadProfile.Name = "cancelLoadProfile";
             this.cancelLoadProfile.Size = new System.Drawing.Size(192, 51);
             this.cancelLoadProfile.TabIndex = 4;
@@ -61,13 +61,13 @@
             // listBoxProfiles
             // 
             this.listBoxProfiles.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.listBoxProfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxProfiles.Font = new System.Drawing.Font("café & brewery", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxProfiles.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listBoxProfiles.FormattingEnabled = true;
-            this.listBoxProfiles.ItemHeight = 24;
+            this.listBoxProfiles.ItemHeight = 23;
             this.listBoxProfiles.Location = new System.Drawing.Point(12, 12);
             this.listBoxProfiles.Name = "listBoxProfiles";
-            this.listBoxProfiles.Size = new System.Drawing.Size(429, 76);
+            this.listBoxProfiles.Size = new System.Drawing.Size(429, 96);
             this.listBoxProfiles.TabIndex = 3;
             // 
             // LoadProfile
@@ -75,7 +75,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(456, 199);
+            this.ClientSize = new System.Drawing.Size(456, 192);
             this.Controls.Add(this.buttonConfirmLoadProfile);
             this.Controls.Add(this.cancelLoadProfile);
             this.Controls.Add(this.listBoxProfiles);

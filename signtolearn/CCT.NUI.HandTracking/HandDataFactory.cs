@@ -45,10 +45,6 @@ namespace CCT.NUI.HandTracking
             this.sdkFilter = new ImageFrameDepthPointFilter(sensor, size, this.clusteringSettings.MinimumDepthThreshold, this.clusteringSettings.MaximumDepthThreshold, this.clusteringSettings.LowerBorder);
         }
 
-        public HandCollection Create(IntPtr depthData)
-        {
-            return this.Create(this.filter.Filter(depthData));
-        }
 
         public HandCollection Create(DepthImageFrame imageFrage)
         {

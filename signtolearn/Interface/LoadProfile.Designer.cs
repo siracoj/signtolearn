@@ -44,6 +44,7 @@
             this.buttonConfirmLoadProfile.Size = new System.Drawing.Size(193, 51);
             this.buttonConfirmLoadProfile.TabIndex = 5;
             this.buttonConfirmLoadProfile.UseVisualStyleBackColor = true;
+            this.buttonConfirmLoadProfile.Click += new System.EventHandler(this.buttonConfirmLoadProfile_Click);
             // 
             // cancelLoadProfile
             // 
@@ -55,6 +56,7 @@
             this.cancelLoadProfile.Size = new System.Drawing.Size(192, 51);
             this.cancelLoadProfile.TabIndex = 4;
             this.cancelLoadProfile.UseVisualStyleBackColor = true;
+            this.cancelLoadProfile.Click += new System.EventHandler(this.cancelLoadProfile_Click);
             // 
             // listBoxProfiles
             // 

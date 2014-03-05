@@ -46,6 +46,7 @@
             this.buttonCreateProfile.Size = new System.Drawing.Size(292, 82);
             this.buttonCreateProfile.TabIndex = 4;
             this.buttonCreateProfile.UseVisualStyleBackColor = true;
+            this.buttonCreateProfile.Click += new System.EventHandler(this.buttonCreateProfile_Click);
             // 
             // buttonLoadProfile
             // 

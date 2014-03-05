@@ -19,9 +19,30 @@ namespace Interface
 
         private void buttonLoadProfile_Click(object sender, EventArgs e)
         {
-            LoadProfile LP = new LoadProfile();
-            //this.Hide();
-            LP.Show();
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenLoad));
+            t.Start();
+            this.Hide();
+            t.Join();
+            this.Show();
+        }
+
+        private static void OpenLoad()
+        {
+            Application.Run(new LoadProfile());
+        }
+
+        private void buttonCreateProfile_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenCreate));
+            t.Start();
+            this.Hide();
+            t.Join();
+            this.Show();
+        }
+
+        private static void OpenCreate()
+        {
+            Application.Run(new CreateProfile());
         }
     }
 }

@@ -163,44 +163,44 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("Bebas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Label1.Location = new System.Drawing.Point(498, 329);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(29, 36);
+            this.Label1.Size = new System.Drawing.Size(29, 31);
             this.Label1.TabIndex = 35;
             this.Label1.Text = "0";
             // 
             // labelBestScore
             // 
             this.labelBestScore.AutoSize = true;
-            this.labelBestScore.Font = new System.Drawing.Font("Bebas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBestScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBestScore.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelBestScore.Location = new System.Drawing.Point(345, 329);
             this.labelBestScore.Name = "labelBestScore";
-            this.labelBestScore.Size = new System.Drawing.Size(156, 36);
+            this.labelBestScore.Size = new System.Drawing.Size(169, 31);
             this.labelBestScore.TabIndex = 34;
             this.labelBestScore.Text = "Best   Score:";
             // 
             // labelTrainingProgressPercentage
             // 
             this.labelTrainingProgressPercentage.AutoSize = true;
-            this.labelTrainingProgressPercentage.Font = new System.Drawing.Font("Bebas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTrainingProgressPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTrainingProgressPercentage.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelTrainingProgressPercentage.Location = new System.Drawing.Point(345, 162);
             this.labelTrainingProgressPercentage.Name = "labelTrainingProgressPercentage";
-            this.labelTrainingProgressPercentage.Size = new System.Drawing.Size(187, 36);
+            this.labelTrainingProgressPercentage.Size = new System.Drawing.Size(206, 31);
             this.labelTrainingProgressPercentage.TabIndex = 33;
             this.labelTrainingProgressPercentage.Text = "100% Complete";
             // 
             // labelProgress
             // 
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Font = new System.Drawing.Font("Bebas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelProgress.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelProgress.Location = new System.Drawing.Point(344, 37);
             this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(244, 36);
+            this.labelProgress.Size = new System.Drawing.Size(250, 31);
             this.labelProgress.TabIndex = 32;
             this.labelProgress.Text = "Training   Progress:";
             // 
@@ -230,13 +230,13 @@
             // LabelUsername
             // 
             this.LabelUsername.AutoSize = true;
-            this.LabelUsername.Font = new System.Drawing.Font("Bebas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelUsername.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LabelUsername.Location = new System.Drawing.Point(9, 7);
             this.LabelUsername.Name = "LabelUsername";
-            this.LabelUsername.Size = new System.Drawing.Size(291, 53);
+            this.LabelUsername.Size = new System.Drawing.Size(227, 46);
             this.LabelUsername.TabIndex = 29;
-            this.LabelUsername.Text = "Garrett   Lister";
+            this.LabelUsername.Text = "placeholder";
             // 
             // buttonLoadProfile
             // 

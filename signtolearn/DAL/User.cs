@@ -36,14 +36,14 @@ namespace DAL
             return retVal;
         }
 
-        public static String GetFirstName(String UserName)
+        public static String GetName(String UserName)
         {   //this function can get the first name of someone based on their user name. can be used for like a welcome screen or something when they log in
             SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
             Conn.Open();
-            SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName from User WHHERE UserName = '{0}'", UserName), Conn);
+            SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName, LastName from [User] WHERE UserName = '{0}'", UserName), Conn);
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-            String retVal = reader[0].ToString();
+            String retVal = String.Format("{0} {1}", reader[0].ToString(), reader[1].ToString());
             Conn.Close();
             return retVal;
         }
@@ -52,12 +52,28 @@ namespace DAL
         {   //this function gets the current progress the user has calibrated to. check if they are fully calibrated before letting them progress
             SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
             Conn.Open();
-            SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from User WHHERE UserName = '{0}'", UserName), Conn);
+            SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from [User] WHERE UserName = '{0}'", UserName), Conn);
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             char retVal = char.Parse(reader[0].ToString());
             Conn.Close();
             return retVal;
+        }
+
+        public static bool AddProfile(String UserName, String FirstName, String LastName)
+        {
+            if (GetUserNames().Contains(UserName))
+                return false;
+
+            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("INSERT into [User] (UserName, FirstName, LastName, TrainingProgress) VALUES (@username, @firstname, @lastname, 'A')", conn);
+            cmd.Parameters.AddWithValue("@username", UserName);
+            cmd.Parameters.AddWithValue("@firstname", FirstName);
+            cmd.Parameters.AddWithValue("@lastname", LastName);
+            cmd.ExecuteScalar();
+            conn.Close();
+            return true;
         }
     }
 }

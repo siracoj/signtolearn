@@ -16,5 +16,18 @@ namespace Interface
         {
             InitializeComponent();
         }
+
+        private void buttonCancelCreateUser_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonConfirmCreateUser_Click(object sender, EventArgs e)
+        {
+            if (DAL.User.AddProfile(textBoxUsername.Text, textBoxFirstName.Text, textBoxLastName.Text))
+                this.Close();
+            else
+                textBoxUsername.Text = "UserName Taken";
+        }
     }
 }

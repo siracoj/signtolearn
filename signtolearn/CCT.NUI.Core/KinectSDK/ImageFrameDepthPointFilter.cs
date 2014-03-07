@@ -6,7 +6,7 @@ using Microsoft.Kinect;
 using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 
-namespace CCT.NUI.KinectSDK
+namespace CCT.NUI.Core
 {
     public class ImageFrameDepthPointFilter : IDepthPointFilter<DepthImageFrame>
     {

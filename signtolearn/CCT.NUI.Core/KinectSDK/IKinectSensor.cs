@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Kinect;
 
-namespace CCT.NUI.KinectSDK
+namespace CCT.NUI.Core
 {
     public interface IKinectSensor
     {

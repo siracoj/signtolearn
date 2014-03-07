@@ -61,10 +61,6 @@
       <Project>{e8310b15-6b84-40a5-856d-b0ae0eee3771}</Project>
       <Name>CCT.NUI.HandTracking</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CCT.NUI.KinectSDK\CCT.NUI.KinectSDK.csproj">
-      <Project>{cdb12665-4e9e-46ca-ad74-63e943c17f62}</Project>
-      <Name>CCT.NUI.KinectSDK</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

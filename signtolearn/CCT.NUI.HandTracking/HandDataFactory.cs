@@ -7,7 +7,7 @@ using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 using CCT.NUI.Core.Shape;
 
-using CCT.NUI.KinectSDK;
+using CCT.NUI.Core;
 
 namespace CCT.NUI.HandTracking
 {

@@ -74,10 +74,6 @@
       <Project>{AA2D3699-3FC9-43D6-AA24-CD930E487BC7}</Project>
       <Name>CCT.NUI.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CCT.NUI.KinectSDK\CCT.NUI.KinectSDK.csproj">
-      <Project>{CDB12665-4E9E-46CA-AD74-63E943C17F62}</Project>
-      <Name>CCT.NUI.KinectSDK</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

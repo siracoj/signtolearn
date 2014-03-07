@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CCT.NUI.Core;
 
-namespace CCT.NUI.KinectSDK
+namespace CCT.NUI.Core
 {
     public abstract class SensorDataSource<TValue>
     {

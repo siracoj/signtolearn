@@ -7,7 +7,7 @@ using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 using System.Collections.Concurrent;
 
-namespace CCT.NUI.KinectSDK
+namespace CCT.NUI.Core
 {
     public class SDKClusterDataSource : SensorDataSource<ClusterCollection>, IClusterDataSource
     {

@@ -7,7 +7,7 @@ using CCT.NUI.Core;
 using CCT.NUI.Core.Clustering;
 using CCT.NUI.Core.Shape;
 
-namespace CCT.NUI.KinectSDK
+namespace CCT.NUI.Core
 {
     public class SDKDataSourceFactory : IDataSourceFactory
     {

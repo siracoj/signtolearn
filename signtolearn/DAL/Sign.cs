@@ -11,7 +11,7 @@ namespace DAL
     public static class Sign
     {
         private static String GetSQLConnectionString()
-        {
+        {   //function to get the connection string used to communicate with the database
             String DBServer = ConfigurationSettings.AppSettings.Get("DatabaseServer");
             String DBName = "SignToLearn";
             String DBUser = "sa";
@@ -21,52 +21,35 @@ namespace DAL
 
         public static SignInfo GetSignInfo(String UserName, char Letter)
         {   //gets all of the calibrated and uncalibrated info to match a sign
-            try
-            {
-                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
-                cmd.Parameters.AddWithValue("@username", UserName);
-                cmd.Parameters.AddWithValue("@letter", Letter);
-                SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                double Percentage = Double.Parse(reader[0].ToString());
-                int NumFingers = Int32.Parse(reader[1].ToString());
-                double ClosestPoint = Double.Parse(reader[2].ToString());
-                double Area = Double.Parse(reader[3].ToString());
-                conn.Close();
-                return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
-            }
-            catch (SqlException e)
-            {
-                //not sure what to do here, but we need try catches
-                Environment.Exit(0);
-                return null;
-            }
+            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
+            cmd.Parameters.AddWithValue("@username", UserName);
+            cmd.Parameters.AddWithValue("@letter", Letter);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            double Percentage = Double.Parse(reader[0].ToString());
+            int NumFingers = Int32.Parse(reader[1].ToString());
+            double ClosestPoint = Double.Parse(reader[2].ToString());
+            double Area = Double.Parse(reader[3].ToString());
+            conn.Close();
+            return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
         }
 
         public static void AddSign(char Letter, String UserName, double Area)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-                SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
-                cmd.Parameters.AddWithValue("@letter", Letter);
-                cmd.Parameters.AddWithValue("@username", UserName);
-                cmd.Parameters.AddWithValue("@area", Area);
-                cmd.ExecuteScalar();
-                conn.Close();
-            }
-            catch (SqlException e)
-            {
-                //not sure what to do here, but we need try catches
-                Environment.Exit(0);
-            }
+        {   //adds a users calibrated sign data to the database
+            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+            SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
+            cmd.Parameters.AddWithValue("@letter", Letter);
+            cmd.Parameters.AddWithValue("@username", UserName);
+            cmd.Parameters.AddWithValue("@area", Area);
+            cmd.ExecuteScalar();
+            conn.Close();
         }
     }
 
     public class SignInfo : AlphabetInfo
-    {
+    {   //data structure to hold all information to recognize a sign
         public SignInfo(char _Letter, String _UserName, double _Percentage, int _NumFingers, double _ClosestPoint, double _Area) : base(_Letter, _NumFingers, _ClosestPoint, _Percentage)
         {
             UserName = _UserName;

@@ -11,7 +11,7 @@ namespace DAL
     public static class Alphabet
     {
         private static String GetSQLConnectionString()
-        {
+        {   //function to get the connection string used to communicate with the database
             String DBServer = ConfigurationSettings.AppSettings.Get("DatabaseServer");
             String DBName = "SignToLearn";
             String DBUser = "sa";
@@ -20,34 +20,27 @@ namespace DAL
         }
 
         public static AlphabetInfo GetLetterInfo(char Letter)
-        {   //gets the determining information for a letter
+        {   //gets information to recognize a sign from the database
             if (!Char.IsLetter(Letter))
                 throw new FormatException("Inputted character is not a letter");
-            try
-            {
-                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT NumFingers, ClosestPoint, Percentage FROM Alphabet WHERE Letter = @letter", conn);
-                cmd.Parameters.AddWithValue("@letter", Letter);
-                SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                int NumFingers = Int32.Parse(reader[0].ToString());
-                double ClosestPoint = double.Parse(reader[1].ToString());
-                double Percentage = double.Parse(reader[2].ToString());
-                conn.Close();
-                return new AlphabetInfo(Letter, NumFingers, ClosestPoint, Percentage);
-            }
-            catch (SqlException e)
-            {
-                //not sure what to do here, but we nee try catches
-                Environment.Exit(0);
-                return null;
-            }
+
+            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT NumFingers, ClosestPoint, Percentage FROM Alphabet WHERE Letter = @letter", conn);
+            Letter = Char.Parse(Letter.ToString().ToUpper()); //we store letters in database as uppercase
+            cmd.Parameters.AddWithValue("@letter", Letter);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int NumFingers = Int32.Parse(reader[0].ToString());
+            double ClosestPoint = double.Parse(reader[1].ToString());
+            double Percentage = double.Parse(reader[2].ToString());
+            conn.Close();
+            return new AlphabetInfo(Letter, NumFingers, ClosestPoint, Percentage);
         }
     }
 
     public class AlphabetInfo
-    {
+    {   //data structure used to hold information about a sign
         public char Letter { get; private set; }
         public int NumFingers { get; private set; }
         public double ClosestPoint { get; private set; }

@@ -24,16 +24,26 @@ namespace Interface
 
         private void buttonConfirmCreateUser_Click(object sender, EventArgs e)
         {
-            if (DAL.User.AddProfile(textBoxUsername.Text, textBoxFirstName.Text, textBoxLastName.Text))
-                this.Close();
-            else if (textBoxFirstName.Text == null)
-                textBoxUsername.Text = "Need to enter a username";
-            else if (textBoxLastName.Text == null)
-                textBoxLastName.Text = "Need to enter a last name";
-            else if (textBoxFirstName.Text == null)
-                textBoxFirstName.Text = "Need to enter a first name";
+            if (String.IsNullOrEmpty(textBoxUsername.Text))
+                MessageBox.Show("Need to enter a username");
+            else if (String.IsNullOrEmpty(textBoxFirstName.Text))
+                MessageBox.Show("Need to enter a first name");
+            else if (String.IsNullOrEmpty(textBoxLastName.Text))
+                MessageBox.Show("Need to enter a last name");
             else
-                textBoxUsername.Text = "UserName Taken";
+            {
+                try
+                {
+                    if (DAL.User.AddProfile(textBoxUsername.Text, textBoxFirstName.Text, textBoxLastName.Text))
+                        this.Close();
+                    else
+                        MessageBox.Show("Username is already taken");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Could not connect to database");
+                }
+            }
         }
     }
 }

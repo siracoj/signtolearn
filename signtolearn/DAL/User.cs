@@ -11,7 +11,7 @@ namespace DAL
     public static class User
     {
         private static String GetSQLConnectionString()
-        {
+        {   //function to get the connection string used to communicate with the database
             String DBServer = ConfigurationSettings.AppSettings.Get("DatabaseServer");
             String DBName = "SignToLearn";
             String DBUser = "sa";
@@ -20,96 +20,60 @@ namespace DAL
         }
 
         public static List<String> GetUserNames()
-        {   //this function would be good to use to populate a login screen of user names
+        {   //function that returns all user names in the database
             List<String> retVal = new List<String>();
-            try
-            {
                 
-                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-                Conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT UserName from [User]", Conn);
-                SqlDataReader reader = cmd.ExecuteReader();
+            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+            Conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT UserName from [User]", Conn);
+            SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    retVal.Add(reader[0].ToString());
-                }
-                Conn.Close();
-                return retVal;
-            }
-            catch (SqlException e)
+            while (reader.Read())
             {
-                Environment.Exit(0);
-                return null;
-                //maybe a could not connect message here?
+                retVal.Add(reader[0].ToString());
             }
+            Conn.Close();
+            return retVal;
         }
 
         public static String GetName(String UserName)
-        {   //this function can get the first name of someone based on their user name. can be used for like a welcome screen or something when they log in
-            try
-            {
-                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-                Conn.Open();
-                SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName, LastName from [User] WHERE UserName = '{0}'", UserName), Conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                String retVal = String.Format("{0} {1}", reader[0].ToString(), reader[1].ToString());
-                Conn.Close();
-                return retVal;
-            }
-            catch (Exception)
-            {
-                //not sure what to do here, but we need try catches
-                Environment.Exit(0);
-                return null;
-
-            }
+        {   //gets a users first and last name from the database
+            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+            Conn.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName, LastName from [User] WHERE UserName = '{0}'", UserName), Conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            String retVal = String.Format("{0} {1}", reader[0].ToString(), reader[1].ToString());
+            Conn.Close();
+            return retVal;
         }
 
         public static char GetProgress(String UserName)
-        {   //this function gets the current progress the user has calibrated to. check if they are fully calibrated before letting them progress
-            try
-            {
-                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-                Conn.Open();
-                SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from [User] WHERE UserName = '{0}'", UserName), Conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                char retVal = char.Parse(reader[0].ToString());
-                Conn.Close();
-                return retVal;
-            }
-            catch (SqlException e)
-            {
-                //not sure what to do here, but we need try catches
-                Environment.Exit(0);
-                return '0';
-            }
+        {   //gets a useres training progress from the database
+            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+            Conn.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from [User] WHERE UserName = '{0}'", UserName), Conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            char retVal = char.Parse(reader[0].ToString());
+            Conn.Close();
+            return retVal;
         }
 
         public static bool AddProfile(String UserName, String FirstName, String LastName)
-        {
+        {   //adds a new user profile to the database
             if (GetUserNames().Contains(UserName))
                 return false;
-            try
-            {
-                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT into [User] (UserName, FirstName, LastName, TrainingProgress) VALUES (@username, @firstname, @lastname, 'A')", conn);
-                cmd.Parameters.AddWithValue("@username", UserName);
-                cmd.Parameters.AddWithValue("@firstname", FirstName);
-                cmd.Parameters.AddWithValue("@lastname", LastName);
-                cmd.ExecuteScalar();
-                conn.Close();
-                return true;
-            }
-            catch (SqlException e)
-            {
-                //not sure what to do here, but we need try catches
-                Environment.Exit(0);
-                return false;
-            }
+            
+            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("INSERT into [User] (UserName, FirstName, LastName, TrainingProgress) VALUES (@username, @firstname, @lastname, 'A')", conn);
+            cmd.Parameters.AddWithValue("@username", UserName);
+            cmd.Parameters.AddWithValue("@firstname", FirstName);
+            cmd.Parameters.AddWithValue("@lastname", LastName);
+            cmd.ExecuteScalar();
+            conn.Close();
+            return true;
         }
     }
 }

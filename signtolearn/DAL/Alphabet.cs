@@ -23,18 +23,26 @@ namespace DAL
         {   //gets the determining information for a letter
             if (!Char.IsLetter(Letter))
                 throw new FormatException("Inputted character is not a letter");
-
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT NumFingers, ClosestPoint, Percentage FROM Alphabet WHERE Letter = @letter", conn);
-            cmd.Parameters.AddWithValue("@letter", Letter);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int NumFingers = Int32.Parse(reader[0].ToString());
-            double ClosestPoint = double.Parse(reader[1].ToString());
-            double Percentage = double.Parse(reader[2].ToString());
-            conn.Close();
-            return new AlphabetInfo(Letter, NumFingers, ClosestPoint, Percentage);
+            try
+            {
+                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT NumFingers, ClosestPoint, Percentage FROM Alphabet WHERE Letter = @letter", conn);
+                cmd.Parameters.AddWithValue("@letter", Letter);
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                int NumFingers = Int32.Parse(reader[0].ToString());
+                double ClosestPoint = double.Parse(reader[1].ToString());
+                double Percentage = double.Parse(reader[2].ToString());
+                conn.Close();
+                return new AlphabetInfo(Letter, NumFingers, ClosestPoint, Percentage);
+            }
+            catch (SqlException e)
+            {
+                //not sure what to do here, but we nee try catches
+                Environment.Exit(0);
+                return null;
+            }
         }
     }
 

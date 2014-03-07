@@ -21,30 +21,47 @@ namespace DAL
 
         public static SignInfo GetSignInfo(String UserName, char Letter)
         {   //gets all of the calibrated and uncalibrated info to match a sign
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
-            cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@letter", Letter);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            double Percentage = Double.Parse(reader[0].ToString());
-            int NumFingers = Int32.Parse(reader[1].ToString());
-            double ClosestPoint = Double.Parse(reader[2].ToString());
-            double Area = Double.Parse(reader[3].ToString());
-            conn.Close();
-            return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
+            try
+            {
+                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
+                cmd.Parameters.AddWithValue("@username", UserName);
+                cmd.Parameters.AddWithValue("@letter", Letter);
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                double Percentage = Double.Parse(reader[0].ToString());
+                int NumFingers = Int32.Parse(reader[1].ToString());
+                double ClosestPoint = Double.Parse(reader[2].ToString());
+                double Area = Double.Parse(reader[3].ToString());
+                conn.Close();
+                return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
+            }
+            catch (SqlException e)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+                return null;
+            }
         }
 
         public static void AddSign(char Letter, String UserName, double Area)
         {
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
-            cmd.Parameters.AddWithValue("@letter", Letter);
-            cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@area", Area);
-            cmd.ExecuteScalar();
-            conn.Close();
+            try
+            {
+                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+                SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
+                cmd.Parameters.AddWithValue("@letter", Letter);
+                cmd.Parameters.AddWithValue("@username", UserName);
+                cmd.Parameters.AddWithValue("@area", Area);
+                cmd.ExecuteScalar();
+                conn.Close();
+            }
+            catch (SqlException e)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+            }
         }
     }
 

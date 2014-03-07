@@ -22,18 +22,27 @@ namespace DAL
         public static List<String> GetUserNames()
         {   //this function would be good to use to populate a login screen of user names
             List<String> retVal = new List<String>();
-            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-            Conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT UserName from [User]", Conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                retVal.Add(reader[0].ToString());
-            }
+                
+                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+                Conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT UserName from [User]", Conn);
+                SqlDataReader reader = cmd.ExecuteReader();
 
-            Conn.Close();
-            return retVal;
+                while (reader.Read())
+                {
+                    retVal.Add(reader[0].ToString());
+                }
+                Conn.Close();
+                return retVal;
+            }
+            catch (SqlException e)
+            {
+                retVal.Add("Error could not connect");
+                return retVal;
+                //maybe a could not connect message here?
+            }
         }
 
         public static String GetName(String UserName)

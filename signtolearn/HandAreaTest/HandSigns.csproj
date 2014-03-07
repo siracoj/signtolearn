@@ -36,6 +36,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CCT.NUI.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CCT.NUI.HandTracking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.HandTracking.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,16 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CCT.NUI.Core\CCT.NUI.Core.csproj">
-      <Project>{aa2d3699-3fc9-43d6-aa24-cd930e487bc7}</Project>
-      <Name>CCT.NUI.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CCT.NUI.HandTracking\CCT.NUI.HandTracking.csproj">
-      <Project>{e8310b15-6b84-40a5-856d-b0ae0eee3771}</Project>
-      <Name>CCT.NUI.HandTracking</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

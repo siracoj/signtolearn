@@ -39,22 +39,32 @@ namespace DAL
             }
             catch (SqlException e)
             {
-                retVal.Add("Error could not connect");
-                return retVal;
+                Environment.Exit(0);
+                return null;
                 //maybe a could not connect message here?
             }
         }
 
         public static String GetName(String UserName)
         {   //this function can get the first name of someone based on their user name. can be used for like a welcome screen or something when they log in
-            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-            Conn.Open();
-            SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName, LastName from [User] WHERE UserName = '{0}'", UserName), Conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            String retVal = String.Format("{0} {1}", reader[0].ToString(), reader[1].ToString());
-            Conn.Close();
-            return retVal;
+            try
+            {
+                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+                Conn.Open();
+                SqlCommand cmd = new SqlCommand(String.Format("SELECT FirstName, LastName from [User] WHERE UserName = '{0}'", UserName), Conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                String retVal = String.Format("{0} {1}", reader[0].ToString(), reader[1].ToString());
+                Conn.Close();
+                return retVal;
+            }
+            catch (Exception)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+                return null;
+
+            }
         }
 
         public static char GetProgress(String UserName)

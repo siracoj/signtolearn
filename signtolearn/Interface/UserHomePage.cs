@@ -15,9 +15,18 @@ namespace Interface
         public UserHomePage(String UserName)
         {
             InitializeComponent();
-            LabelUsername.Text = DAL.User.GetName(UserName);
-            int Percent = (int)((double)(DAL.User.GetProgress(UserName) - 65) / 25 * 100);
-            labelTrainingProgressPercentage.Text = String.Format("{0}% Complete", Percent);
+            try
+            {
+                LabelUsername.Text = DAL.User.GetName(UserName);
+                int Percent = (int)((double)(DAL.User.GetProgress(UserName) - 65) / 25 * 100);
+                labelTrainingProgressPercentage.Text = String.Format("{0}% Complete", Percent);
+            }
+            catch (Exception)
+            {
+                //not sure what to do here, but we need try catches
+                this.Close();
+
+            }
         }
     }
 }

@@ -26,6 +26,12 @@ namespace Interface
         {
             if (DAL.User.AddProfile(textBoxUsername.Text, textBoxFirstName.Text, textBoxLastName.Text))
                 this.Close();
+            else if (textBoxFirstName.Text == null)
+                textBoxUsername.Text = "Need to enter a username";
+            else if (textBoxLastName.Text == null)
+                textBoxLastName.Text = "Need to enter a last name";
+            else if (textBoxFirstName.Text == null)
+                textBoxFirstName.Text = "Need to enter a first name";
             else
                 textBoxUsername.Text = "UserName Taken";
         }

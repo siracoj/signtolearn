@@ -15,12 +15,20 @@ namespace Interface
         public LoadProfile()
         {
             InitializeComponent();
-
-            foreach (String s in DAL.User.GetUserNames())
+            try
             {
-                listBoxProfiles.Items.Add(s);
+                foreach (String s in DAL.User.GetUserNames())
+                {
+                    listBoxProfiles.Items.Add(s);
+                }
+                listBoxProfiles.SetSelected(0, true);
             }
-            listBoxProfiles.SetSelected(0, true);
+            catch (Exception)
+            {
+                //not sure what to do here, but we need try catches
+                this.Close();
+
+            }
         }
 
         private void cancelLoadProfile_Click(object sender, EventArgs e)

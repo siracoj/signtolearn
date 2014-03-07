@@ -59,30 +59,47 @@ namespace DAL
 
         public static char GetProgress(String UserName)
         {   //this function gets the current progress the user has calibrated to. check if they are fully calibrated before letting them progress
-            SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
-            Conn.Open();
-            SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from [User] WHERE UserName = '{0}'", UserName), Conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            char retVal = char.Parse(reader[0].ToString());
-            Conn.Close();
-            return retVal;
+            try
+            {
+                SqlConnection Conn = new SqlConnection(GetSQLConnectionString());
+                Conn.Open();
+                SqlCommand cmd = new SqlCommand(String.Format("SELECT TrainingProgress from [User] WHERE UserName = '{0}'", UserName), Conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                char retVal = char.Parse(reader[0].ToString());
+                Conn.Close();
+                return retVal;
+            }
+            catch (SqlException e)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+                return '0';
+            }
         }
 
         public static bool AddProfile(String UserName, String FirstName, String LastName)
         {
             if (GetUserNames().Contains(UserName))
                 return false;
-
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("INSERT into [User] (UserName, FirstName, LastName, TrainingProgress) VALUES (@username, @firstname, @lastname, 'A')", conn);
-            cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@firstname", FirstName);
-            cmd.Parameters.AddWithValue("@lastname", LastName);
-            cmd.ExecuteScalar();
-            conn.Close();
-            return true;
+            try
+            {
+                SqlConnection conn = new SqlConnection(GetSQLConnectionString());
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("INSERT into [User] (UserName, FirstName, LastName, TrainingProgress) VALUES (@username, @firstname, @lastname, 'A')", conn);
+                cmd.Parameters.AddWithValue("@username", UserName);
+                cmd.Parameters.AddWithValue("@firstname", FirstName);
+                cmd.Parameters.AddWithValue("@lastname", LastName);
+                cmd.ExecuteScalar();
+                conn.Close();
+                return true;
+            }
+            catch (SqlException e)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+                return false;
+            }
         }
     }
 }

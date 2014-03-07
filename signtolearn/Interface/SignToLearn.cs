@@ -19,11 +19,20 @@ namespace Interface
 
         private void buttonLoadProfile_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenLoad));
-            t.Start();
-            this.Hide();
-            t.Join();
-            this.Show();
+            try
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenLoad));
+                t.Start();
+                this.Hide();
+                t.Join();
+                this.Show();
+            }
+            catch (Exception)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+
+            }
         }
 
         private static void OpenLoad()
@@ -33,11 +42,20 @@ namespace Interface
 
         private void buttonCreateProfile_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenCreate));
-            t.Start();
-            this.Hide();
-            t.Join();
-            this.Show();
+            try
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(OpenCreate));
+                t.Start();
+                this.Hide();
+                t.Join();
+                this.Show();
+            }
+            catch (Exception)
+            {
+                //not sure what to do here, but we need try catches
+                Environment.Exit(0);
+
+            }
         }
 
         private static void OpenCreate()

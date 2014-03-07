@@ -25,9 +25,7 @@ namespace Interface
             }
             catch (Exception)
             {
-                //not sure what to do here, but we need try catches
-                this.Close();
-
+                MessageBox.Show("Could not connect to database");
             }
         }
 

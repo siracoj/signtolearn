@@ -4,47 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL
 {
     public static class Sign
     {
-        private static String GetSQLConnectionString()
-        {   //function to get the connection string used to communicate with the database
-            String DBServer = ConfigurationSettings.AppSettings.Get("DatabaseServer");
-            String DBName = "SignToLearn";
-            String DBUser = "sa";
-            String DBPass = "Clasic22";
-            return String.Format("user id={0};password={1};server={2};Trusted_Connection=yes;database={3};connection timeout=30; MultipleActiveResultSets=True;", DBUser, DBPass, DBServer, DBName);
-        }
 
-        public static SignInfo GetSignInfo(String UserName, char Letter)
+        public static IList<SignInfo> GetSignInfo(String UserName, char Letter)
         {   //gets all of the calibrated and uncalibrated info to match a sign
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign INNER JOIN Alphabet on Sign.Letter = Alphabet.Letter where UserName = @username and Sign.Letter = @letter", conn);
-            cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@letter", Letter);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            double Percentage = Double.Parse(reader[0].ToString());
-            int NumFingers = Int32.Parse(reader[1].ToString());
-            double ClosestPoint = Double.Parse(reader[2].ToString());
-            double Area = Double.Parse(reader[3].ToString());
-            conn.Close();
-            return new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area);
+            IList<SignInfo> signs = new List<SignInfo>();
+            SQLiteDatabase db = new SQLiteDatabase();
+            DataTable rawSigns = new DataTable();
+
+            String cmd = String.Format("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign where UserName = {0} and Sign.Letter = {1}", UserName, Letter);
+            rawSigns = db.GetDataTable(cmd);
+            foreach (DataRow r in rawSigns.Rows)
+            {
+                double Percentage = Double.Parse(r["AreaPercentage"].ToString());
+                int NumFingers = Int32.Parse(r["NumFingers"].ToString());
+                double ClosestPoint = Double.Parse(r["ClosestPoint"].ToString());
+                double Area = Double.Parse(r["Area"].ToString()); 
+                signs.Add(new SignInfo(Letter, UserName, Percentage, NumFingers, ClosestPoint, Area));
+            }
+            return signs;
         }
 
-        public static void AddSign(char Letter, String UserName, double Area)
+        public static void AddSign(SignInfo sign)
         {   //adds a users calibrated sign data to the database
-            SqlConnection conn = new SqlConnection(GetSQLConnectionString());
-            SqlCommand cmd = new SqlCommand("INSERT into Sign (Letter, UserName, Area) VALUES (@letter, @username, @area)", conn);
-            cmd.Parameters.AddWithValue("@letter", Letter);
-            cmd.Parameters.AddWithValue("@username", UserName);
-            cmd.Parameters.AddWithValue("@area", Area);
-            cmd.ExecuteScalar();
-            conn.Close();
+            SQLiteDatabase db = new SQLiteDatabase(); 
+            Dictionary<String,String> data = new Dictionary<string,string>();
+
+            data.Add("Letter", sign.Letter.ToString());
+            data.Add("UserName", sign.UserName);
+            data.Add("Area", sign.Area.ToString());
+            data.Add("AreaPercentage", sign.Percentage.ToString());
+            data.Add("ClosestPoint", sign.ClosestPoint.ToString());
+            data.Add("NumFingers", sign.NumFingers.ToString());
+
+            db.Insert("Sign",data);
         }
     }
 

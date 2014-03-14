@@ -21,11 +21,14 @@ namespace Interface
                 {
                     listBoxProfiles.Items.Add(s);
                 }
-                listBoxProfiles.SetSelected(0, true);
+                if (listBoxProfiles.Items.Count > 0)
+                {
+                    listBoxProfiles.SetSelected(0, true);
+                }
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                MessageBox.Show("Could not connect to database");
+                MessageBox.Show(String.Format("Could not connect to database\n {0}", x.Message));
             }
         }
 

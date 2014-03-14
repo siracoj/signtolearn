@@ -18,7 +18,7 @@ namespace HandSigns
         private float openHand = 1;
 
 
-        void Start() // Grabbing data
+        public void Start() // Grabbing data
         {
             IDataSourceFactory dataSourceFactory = new SDKDataSourceFactory();
             var handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
@@ -28,7 +28,7 @@ namespace HandSigns
             
         }
 
-        float getSignPercentage()
+        public float getSignPercentage()
         {
             return signPercentage;
         }

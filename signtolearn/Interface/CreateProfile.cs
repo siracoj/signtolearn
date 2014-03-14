@@ -39,9 +39,9 @@ namespace Interface
                     else
                         MessageBox.Show("Username is already taken");
                 }
-                catch (Exception)
+                catch (Exception x)
                 {
-                    MessageBox.Show("Could not connect to database");
+                    MessageBox.Show(String.Format("Could not connect to database\n {0}", x.Message));
                 }
             }
         }

@@ -40,7 +40,21 @@ namespace Interface
 
         void StartTraining()
         {
-            Application.Run(new KinectVideoStream(UserName));
+            Application.Run(new KinectVideoStream(UserName, true));
+        }
+
+        private void buttonTesting_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(() => StartTesting());
+            t.Start();
+            this.Hide();
+            t.Join();
+            this.Close();
+        }
+
+        void StartTesting()
+        {
+            Application.Run(new KinectVideoStream(UserName, false));
         }
     }
 }

@@ -44,7 +44,7 @@
             this.labelTrainingProgressPercentage = new System.Windows.Forms.Label();
             this.labelProgress = new System.Windows.Forms.Label();
             this.progressBarBody = new System.Windows.Forms.PictureBox();
-            this.buttonCreateProfile = new System.Windows.Forms.Button();
+            this.buttonTesting = new System.Windows.Forms.Button();
             this.LabelUsername = new System.Windows.Forms.Label();
             this.buttonTraining = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.progressIncrement1)).BeginInit();
@@ -215,17 +215,18 @@
             this.progressBarBody.TabIndex = 31;
             this.progressBarBody.TabStop = false;
             // 
-            // buttonCreateProfile
+            // buttonTesting
             // 
-            this.buttonCreateProfile.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCreateProfile.FlatAppearance.BorderSize = 0;
-            this.buttonCreateProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCreateProfile.Image = ((System.Drawing.Image)(resources.GetObject("buttonCreateProfile.Image")));
-            this.buttonCreateProfile.Location = new System.Drawing.Point(12, 283);
-            this.buttonCreateProfile.Name = "buttonCreateProfile";
-            this.buttonCreateProfile.Size = new System.Drawing.Size(292, 82);
-            this.buttonCreateProfile.TabIndex = 30;
-            this.buttonCreateProfile.UseVisualStyleBackColor = true;
+            this.buttonTesting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonTesting.FlatAppearance.BorderSize = 0;
+            this.buttonTesting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTesting.Image = ((System.Drawing.Image)(resources.GetObject("buttonTesting.Image")));
+            this.buttonTesting.Location = new System.Drawing.Point(12, 283);
+            this.buttonTesting.Name = "buttonTesting";
+            this.buttonTesting.Size = new System.Drawing.Size(292, 82);
+            this.buttonTesting.TabIndex = 30;
+            this.buttonTesting.UseVisualStyleBackColor = true;
+            this.buttonTesting.Click += new System.EventHandler(this.buttonTesting_Click);
             // 
             // LabelUsername
             // 
@@ -272,7 +273,7 @@
             this.Controls.Add(this.labelTrainingProgressPercentage);
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.progressBarBody);
-            this.Controls.Add(this.buttonCreateProfile);
+            this.Controls.Add(this.buttonTesting);
             this.Controls.Add(this.LabelUsername);
             this.Controls.Add(this.buttonTraining);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -311,7 +312,7 @@
         internal System.Windows.Forms.Label labelTrainingProgressPercentage;
         internal System.Windows.Forms.Label labelProgress;
         internal System.Windows.Forms.PictureBox progressBarBody;
-        internal System.Windows.Forms.Button buttonCreateProfile;
+        internal System.Windows.Forms.Button buttonTesting;
         internal System.Windows.Forms.Label LabelUsername;
         internal System.Windows.Forms.Button buttonTraining;
     }

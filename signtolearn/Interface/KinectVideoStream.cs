@@ -17,11 +17,23 @@ namespace Interface
         KinectSensor kinectSensor = null;
         ColorImageFormat imageFormat = ColorImageFormat.RgbResolution640x480Fps30;
 
-        public KinectVideoStream(String username)
+        public KinectVideoStream(String username, char userprogress, Boolean Training)
         {
             InitializeComponent();
             PopulateAvailableSensors();
             Start();
+            if (Training)
+            {
+                //trainingStart
+            }
+            else if (userprogress == '.')
+            {
+                //testingStart
+            }
+            else
+            {
+                MessageBox.Show("You must complete Training before you start testing");
+            }
         }
 
         private void PopulateAvailableSensors()
@@ -31,11 +43,6 @@ namespace Interface
             {
                 kinectSensor = sensor;
             }
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            PopulateAvailableSensors();
         }
 
         private void Start()
@@ -101,6 +108,11 @@ namespace Interface
             base.OnClosing(e);
 
             DeActivateSensor();
+        }
+
+        private void buttonSaveExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

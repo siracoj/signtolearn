@@ -52,12 +52,30 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CCT.NUI.Core">
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CCT.NUI.HandTracking">
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.HandTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="CCT.NUI.KinectSDK">
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.KinectSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="CCT.NUI.Visual">
+      <HintPath>..\ReferenceAssemblies\CCT.NUI.Visual.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Kinect, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ReferenceAssemblies\Microsoft.Kinect.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,6 +89,7 @@
     <Reference Include="System.Data.SQLite.Linq">
       <HintPath>..\packages\System.Data.SQLite.1.0.91.3\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +98,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateProfile.cs">
@@ -86,6 +108,12 @@
     </Compile>
     <Compile Include="CreateProfile.Designer.cs">
       <DependentUpon>CreateProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Training.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Training.Designer.cs">
+      <DependentUpon>Training.cs</DependentUpon>
     </Compile>
     <Compile Include="SignToLearn.cs">
       <SubType>Form</SubType>
@@ -113,6 +141,7 @@
     <Compile Include="UserHomePage.Designer.cs">
       <DependentUpon>UserHomePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideoSurface.cs" />
     <EmbeddedResource Include="CreateProfile.resx">
       <DependentUpon>CreateProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +162,9 @@
     </Compile>
     <EmbeddedResource Include="Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Training.resx">
+      <DependentUpon>Training.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserHomePage.resx">
       <DependentUpon>UserHomePage.cs</DependentUpon>

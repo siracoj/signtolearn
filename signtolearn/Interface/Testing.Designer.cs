@@ -1,6 +1,6 @@
 ﻿namespace Interface
 {
-    partial class Test
+    partial class Testing
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Test));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Testing));
             this.LabelShowMe = new System.Windows.Forms.Label();
             this.buttonSaveExit = new System.Windows.Forms.Button();
             this.LabelLetter = new System.Windows.Forms.Label();

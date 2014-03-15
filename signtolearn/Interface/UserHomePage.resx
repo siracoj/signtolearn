@@ -282,7 +282,7 @@
         AQIQhgABCEOAAIQhQADCECAAYQgQgDAECEAYAgQgyMn2H9ZMTP6AMHkZAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="buttonLoadProfile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonTraining.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAASAAAABSCAYAAAD0Hgn+AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAamSURBVHhe7ZxNqyU1FEX9/z/GiRMnIjjpiRNHTgRp

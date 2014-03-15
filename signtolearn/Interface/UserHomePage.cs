@@ -12,20 +12,35 @@ namespace Interface
 {
     public partial class UserHomePage : Form
     {
-        public UserHomePage(String UserName)
+        private String UserName;
+        public UserHomePage(String _UserName)
         {
             InitializeComponent();
+            UserName = _UserName;
             try
             {
                 LabelUsername.Text = DAL.User.GetName(UserName);
                 int Percent = (int)((double)(DAL.User.GetProgress(UserName) - 65) / 25 * 100);
                 labelTrainingProgressPercentage.Text = String.Format("{0}% Complete", Percent);
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                MessageBox.Show("Could not connect to database");
+                MessageBox.Show(String.Format("Could not connect to database", x.Message));
                 this.Close();
             }
+        }
+        private void buttonTraining_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(() => StartTraining());
+            t.Start();
+            this.Hide();
+            t.Join();
+            this.Close();
+        }
+
+        void StartTraining()
+        {
+            Application.Run(new KinectVideoStream(UserName));
         }
     }
 }

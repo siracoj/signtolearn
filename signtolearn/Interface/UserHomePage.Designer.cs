@@ -46,7 +46,7 @@
             this.progressBarBody = new System.Windows.Forms.PictureBox();
             this.buttonCreateProfile = new System.Windows.Forms.Button();
             this.LabelUsername = new System.Windows.Forms.Label();
-            this.buttonLoadProfile = new System.Windows.Forms.Button();
+            this.buttonTraining = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.progressIncrement1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressIncrement2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressIncrement3)).BeginInit();
@@ -163,44 +163,44 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("Bebas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Label1.Location = new System.Drawing.Point(498, 329);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(29, 36);
+            this.Label1.Size = new System.Drawing.Size(29, 31);
             this.Label1.TabIndex = 35;
             this.Label1.Text = "0";
             // 
             // labelBestScore
             // 
             this.labelBestScore.AutoSize = true;
-            this.labelBestScore.Font = new System.Drawing.Font("Bebas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBestScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBestScore.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelBestScore.Location = new System.Drawing.Point(345, 329);
             this.labelBestScore.Name = "labelBestScore";
-            this.labelBestScore.Size = new System.Drawing.Size(156, 36);
+            this.labelBestScore.Size = new System.Drawing.Size(169, 31);
             this.labelBestScore.TabIndex = 34;
             this.labelBestScore.Text = "Best   Score:";
             // 
             // labelTrainingProgressPercentage
             // 
             this.labelTrainingProgressPercentage.AutoSize = true;
-            this.labelTrainingProgressPercentage.Font = new System.Drawing.Font("Bebas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTrainingProgressPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTrainingProgressPercentage.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelTrainingProgressPercentage.Location = new System.Drawing.Point(345, 162);
             this.labelTrainingProgressPercentage.Name = "labelTrainingProgressPercentage";
-            this.labelTrainingProgressPercentage.Size = new System.Drawing.Size(187, 36);
+            this.labelTrainingProgressPercentage.Size = new System.Drawing.Size(206, 31);
             this.labelTrainingProgressPercentage.TabIndex = 33;
             this.labelTrainingProgressPercentage.Text = "100% Complete";
             // 
             // labelProgress
             // 
             this.labelProgress.AutoSize = true;
-            this.labelProgress.Font = new System.Drawing.Font("Bebas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelProgress.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelProgress.Location = new System.Drawing.Point(344, 37);
             this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(244, 36);
+            this.labelProgress.Size = new System.Drawing.Size(250, 31);
             this.labelProgress.TabIndex = 32;
             this.labelProgress.Text = "Training   Progress:";
             // 
@@ -230,25 +230,26 @@
             // LabelUsername
             // 
             this.LabelUsername.AutoSize = true;
-            this.LabelUsername.Font = new System.Drawing.Font("Bebas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelUsername.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LabelUsername.Location = new System.Drawing.Point(9, 7);
             this.LabelUsername.Name = "LabelUsername";
-            this.LabelUsername.Size = new System.Drawing.Size(247, 53);
+            this.LabelUsername.Size = new System.Drawing.Size(227, 46);
             this.LabelUsername.TabIndex = 29;
             this.LabelUsername.Text = "placeholder";
             // 
-            // buttonLoadProfile
+            // buttonTraining
             // 
-            this.buttonLoadProfile.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLoadProfile.FlatAppearance.BorderSize = 0;
-            this.buttonLoadProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLoadProfile.Image = ((System.Drawing.Image)(resources.GetObject("buttonLoadProfile.Image")));
-            this.buttonLoadProfile.Location = new System.Drawing.Point(12, 74);
-            this.buttonLoadProfile.Name = "buttonLoadProfile";
-            this.buttonLoadProfile.Size = new System.Drawing.Size(292, 85);
-            this.buttonLoadProfile.TabIndex = 28;
-            this.buttonLoadProfile.UseVisualStyleBackColor = true;
+            this.buttonTraining.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonTraining.FlatAppearance.BorderSize = 0;
+            this.buttonTraining.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTraining.Image = ((System.Drawing.Image)(resources.GetObject("buttonTraining.Image")));
+            this.buttonTraining.Location = new System.Drawing.Point(12, 74);
+            this.buttonTraining.Name = "buttonTraining";
+            this.buttonTraining.Size = new System.Drawing.Size(292, 85);
+            this.buttonTraining.TabIndex = 28;
+            this.buttonTraining.UseVisualStyleBackColor = true;
+            this.buttonTraining.Click += new System.EventHandler(this.buttonTraining_Click);
             // 
             // UserHomePage
             // 
@@ -273,7 +274,7 @@
             this.Controls.Add(this.progressBarBody);
             this.Controls.Add(this.buttonCreateProfile);
             this.Controls.Add(this.LabelUsername);
-            this.Controls.Add(this.buttonLoadProfile);
+            this.Controls.Add(this.buttonTraining);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UserHomePage";
             this.Text = "UserHomePage";
@@ -312,6 +313,6 @@
         internal System.Windows.Forms.PictureBox progressBarBody;
         internal System.Windows.Forms.Button buttonCreateProfile;
         internal System.Windows.Forms.Label LabelUsername;
-        internal System.Windows.Forms.Button buttonLoadProfile;
+        internal System.Windows.Forms.Button buttonTraining;
     }
 }

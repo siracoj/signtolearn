@@ -1,6 +1,7 @@
 ﻿//NUI Imports
 using CCT.NUI.Core;
 using CCT.NUI.HandTracking;
+using CCT.NUI.KinectSDK;
 
 //System Imports
 using System;

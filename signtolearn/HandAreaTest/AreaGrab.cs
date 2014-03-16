@@ -58,7 +58,7 @@ namespace HandSigns
                 float signPercentage = signArea / openHandArea;
 
                 this.reset(); // reset and restart
-                this.Start();
+                
                 return new SignInfo(CurrentLetter, UserName, signPercentage, numFingers, signDistance, signArea);
             }
             else //Don't try to get the sign data until the ready flag is true

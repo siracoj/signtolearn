@@ -36,7 +36,7 @@ namespace Interface
             t.Start();
             this.Hide();
             t.Join();
-            this.Close();
+            this.Show();
         }
 
         void StartTraining()

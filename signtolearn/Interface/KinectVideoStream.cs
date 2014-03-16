@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Kinect;
 using System.Drawing.Imaging;
@@ -22,8 +23,8 @@ namespace Interface
         int currentLetterProgress = 0; //Letter needs to be signed 10 times.
 
         KinectSensor kinectSensor = null;
-        Timer timer = new Timer();
-        System.Threading.Thread t = null;
+        
+        Thread t = null;
 
         // This delegate enables asynchronous calls for setting 
         // the text property on a TextBox control. 
@@ -40,7 +41,7 @@ namespace Interface
             {
                 currentLetter = DAL.User.GetProgress(UserName);
                 currentLetterProgress = DAL.Sign.GetSignInfo(UserName, currentLetter).Count;
-                t = new System.Threading.Thread(() => Train());
+                t = new Thread(() => Train());
                 t.Start();
                 
              
@@ -55,7 +56,7 @@ namespace Interface
 
         private void Train()
         {
-            bool findingOpenHand = true;
+            bool running = true;
 
             char CurrentLetter = DAL.User.GetProgress(UserName);
             SetTextLetter(String.Format("{0}",CurrentLetter));
@@ -63,26 +64,23 @@ namespace Interface
 
             AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
             AG.Start();
-            
-            while (findingOpenHand)
-            {
 
+            while (running)
+            {
                 if (AG.ReadyForSign)
                 {
-                    timer.Tick += new EventHandler((sender, e) => timer_Tick(sender, e, AG)); // Everytime timer ticks, timer_Tick will be called
-                    timer.Interval = (WaitTime) * (1);              // Timer will tick evert second
-                    timer.Enabled = true;                       // Enable the timer
-                    timer.Start();           
+                            
                     SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
-                    findingOpenHand = false;
+                    Thread.Sleep(WaitTime);
+                    CaptureSign(AG);
+                    AG.Start();
                 }
             }
              
         }
-        private void timer_Tick(object sender, EventArgs e, AreaGrab AG)
+        private void CaptureSign(AreaGrab AG)
         {
-            
-            timer.Stop();
+
             SetTextInstruction("Sign Captured");
             DialogResult dialogResult = MessageBox.Show("Store this sign?", "Sign Validation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -104,8 +102,7 @@ namespace Interface
                     }
                 }
             }
-
-            Train();
+            SetTextInstruction("Hold up an open hand in front of the kinect");
         }
         private void PopulateAvailableSensors()
         {

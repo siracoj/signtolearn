@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using Microsoft.Kinect;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+
+using DAL;
 using HandSigns;
 
 namespace Interface
@@ -19,11 +21,8 @@ namespace Interface
         String UserName;
 
         int WaitTime = 3000; // 3 seconds by default
-        char currentLetter;
-        int currentLetterProgress = 0; //Letter needs to be signed 10 times.
-
-        KinectSensor kinectSensor = null;
         
+        KinectSensor kinectSensor = null;        
         Thread t = null;
 
         // This delegate enables asynchronous calls for setting 
@@ -39,12 +38,8 @@ namespace Interface
            
             if (Training)
             {
-                currentLetter = DAL.User.GetProgress(UserName);
-                currentLetterProgress = DAL.Sign.GetSignInfo(UserName, currentLetter).Count;
                 t = new Thread(() => Train());
                 t.Start();
-                
-             
             }
             else
             {
@@ -58,8 +53,10 @@ namespace Interface
         {
             bool running = true;
 
-            char CurrentLetter = DAL.User.GetProgress(UserName);
-            SetTextLetter(String.Format("{0}",CurrentLetter));
+            char CurrentLetter =   User.GetProgress(UserName);
+            SetTextLetter(Char.ToString(CurrentLetter));
+
+            int currentLetterProgress =   Sign.GetSignInfo(UserName, CurrentLetter).Count;
             SetTitle("Training");
 
             AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
@@ -72,24 +69,24 @@ namespace Interface
                             
                     SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
                     Thread.Sleep(WaitTime);
-                    CaptureSign(AG);
+                    CaptureSign(AG, CurrentLetter, currentLetterProgress);
                     AG.Start();
                 }
             }
              
         }
-        private void CaptureSign(AreaGrab AG)
+        private void CaptureSign(AreaGrab AG, char CurrentLetter, int currentLetterProgress)
         {
-
+            SignInfo sign = AG.getSign();
             SetTextInstruction("Sign Captured");
             DialogResult dialogResult = MessageBox.Show("Store this sign?", "Sign Validation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                DAL.Sign.AddSign(AG.getSign());
+                Sign.AddSign(sign);
                 currentLetterProgress++;
                 if (currentLetterProgress >= 10) //checks if the current letter is complete
                 {
-                    if (currentLetter == 'Z')
+                    if (CurrentLetter == 'Z')
                     {
                         MessageBox.Show("Training Complete!");
                         AG.Stop();
@@ -97,8 +94,9 @@ namespace Interface
                     }
                     else
                     {
-                        currentLetter++;
-                        DAL.User.SetProgress(UserName, currentLetter);
+                        CurrentLetter++;
+                        User.SetProgress(UserName, CurrentLetter);
+                        SetTextLetter(Char.ToString(CurrentLetter));
                     }
                 }
             }

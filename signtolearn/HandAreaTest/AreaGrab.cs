@@ -50,7 +50,7 @@ namespace HandSigns
         {
             if (ReadyForSign)
             {
-                this.Stop(); // Pause datastream while getting these numbers
+                //this.Stop(); // Pause datastream while getting these numbers
 
                 float signArea = handArea();
                 float signDistance = ClosestPoint() - openHandDistance;
@@ -72,7 +72,8 @@ namespace HandSigns
 
             for (int index = 0; index < data.Count; index++)
             {
-                if(!ReadyForSign){
+                if (!ReadyForSign)
+                {
                     hand = data.Hands[index];
                     if (hand.FingerCount == 5)
                     { //Takes the area of an open hand(when five fingers are detected)
@@ -80,6 +81,10 @@ namespace HandSigns
                         openHandDistance = ClosestPoint();
                         ReadyForSign = true;
                     }
+                }
+                else
+                {
+                    hand = data.Hands[index];
                 }
             }
         }
@@ -117,6 +122,7 @@ namespace HandSigns
             openHandArea = -1;
             openHandDistance = -1;
             ReadyForSign = false;
+            handDataSource.Dispose();
         }
 
         public void Stop()

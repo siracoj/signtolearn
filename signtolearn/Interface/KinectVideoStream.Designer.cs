@@ -100,7 +100,7 @@
             this.MaximizeBox = false;
             this.Name = "KinectVideoStream";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Training";
+            this.Text = "KinectVideoStream";
             ((System.ComponentModel.ISupportInitialize)(this.picVideoDisplay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

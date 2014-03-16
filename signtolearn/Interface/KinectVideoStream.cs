@@ -9,33 +9,39 @@ using System.Windows.Forms;
 using Microsoft.Kinect;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using HandSigns;
 
 namespace Interface
 {
     public partial class KinectVideoStream : Form
     {
         KinectSensor kinectSensor = null;
-        ColorImageFormat imageFormat = ColorImageFormat.RgbResolution640x480Fps30;
+        String UserName;
 
-        public KinectVideoStream(String username, char userprogress, Boolean Training)
+        public KinectVideoStream(String username,Boolean Training)
         {
             InitializeComponent();
             PopulateAvailableSensors();
             Start();
+            UserName = username;
+
             if (Training)
             {
-                //trainingStart
-            }
-            else if (userprogress == '.')
-            {
-                //testingStart
+                Train();
             }
             else
             {
-                MessageBox.Show("You must complete Training before you start testing");
+                //testingStart
             }
         }
 
+
+        private void Train()
+        {
+            this.LabelLetter.Text = String.Format("{0}",DAL.User.GetProgress(UserName));
+            this.Text = "Training";
+
+        }
         private void PopulateAvailableSensors()
         {
 
@@ -55,7 +61,7 @@ namespace Interface
         {
             if (kinectSensor != null)
             {
-                imageFormat = ColorImageFormat.RgbResolution640x480Fps30;
+                ColorImageFormat imageFormat = ColorImageFormat.RgbResolution640x480Fps30;
                 kinectSensor.ColorStream.Enable(imageFormat);
 
                 kinectSensor.ColorFrameReady += new EventHandler<ColorImageFrameReadyEventArgs>(kinectSensor_ColorFrameReady);

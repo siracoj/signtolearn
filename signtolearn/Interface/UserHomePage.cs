@@ -13,6 +13,7 @@ namespace Interface
     public partial class UserHomePage : Form
     {
         private String UserName;
+        private int Percent;
         public UserHomePage(String _UserName)
         {
             InitializeComponent();
@@ -20,7 +21,7 @@ namespace Interface
             try
             {
                 LabelUsername.Text = DAL.User.GetName(UserName);
-                int Percent = (int)((double)(DAL.User.GetProgress(UserName) - 65) / 25 * 100);
+                Percent = (int)((double)(DAL.User.GetProgress(UserName) - 65) / 25 * 100);
                 labelTrainingProgressPercentage.Text = String.Format("{0}% Complete", Percent);
             }
             catch (Exception x)
@@ -40,7 +41,7 @@ namespace Interface
 
         void StartTraining()
         {
-            Application.Run(new KinectVideoStream(UserName, true));
+            Application.Run(new KinectVideoStream(UserName,true));
         }
 
         private void buttonTesting_Click(object sender, EventArgs e)
@@ -49,12 +50,16 @@ namespace Interface
             t.Start();
             this.Hide();
             t.Join();
-            this.Close();
+            this.Show();
         }
 
         void StartTesting()
         {
-            Application.Run(new KinectVideoStream(UserName, false));
+            if (Percent == 100)
+                Application.Run(new KinectVideoStream(UserName, false));
+            else
+                MessageBox.Show("You must complete training before you can start testing");
+
         }
     }
 }

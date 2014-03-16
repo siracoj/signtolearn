@@ -3,6 +3,9 @@ using CCT.NUI.Core;
 using CCT.NUI.HandTracking;
 using CCT.NUI.KinectSDK;
 
+//Solution Imports
+using DAL;
+
 //System Imports
 using System;
 using System.Collections.Generic;
@@ -15,38 +18,60 @@ namespace HandSigns
 
     class AreaGrab{
         //Properties 
-        float signPercentage = 0;
-        private float openHand = 1;
+        int numFingers;
+        float signPercentage;
+        float signArea;
+        float signDistance;
 
+        private char CurrentLetter;
+        private String UserName;
 
-        public void Start() // Grabbing data
+        private float openHandArea = -1;
+        private float openHandDistance;
+        private IDataSourceFactory dataSourceFactory;
+        private HandDataSource handDataSource;
+        
+
+        public void Start(String username, char currentletter)
         {
-            IDataSourceFactory dataSourceFactory = new SDKDataSourceFactory();
-            var handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
+            UserName = username;
+            CurrentLetter = currentletter;
+            dataSourceFactory = new SDKDataSourceFactory();
+            handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
 
+            //Handles the new data from the kinect
             handDataSource.NewDataAvailable += new NewDataHandler<HandCollection>(handDataSource_NewDataAvailable);
             handDataSource.Start();
             
         }
 
-        public float getSignPercentage()
+        public SignInfo getSign()
         {
-            return signPercentage;
+            return new SignInfo(CurrentLetter, UserName, signPercentage, numFingers, signDistance, signArea);
+        }
+
+        public void Stop()
+        {
+            handDataSource.Stop();
+            handDataSource.Dispose();
         }
 
         private void handDataSource_NewDataAvailable(HandCollection data)
         {
-            
-            for (int index = 0; index < data.Count; index++){
-                var hand = data.Hands[index];
-                IList<Point> points = hand.Contour.Points;
-                if (hand.FingerCount == 5){ //Takes the area of an open hand(when five fingers are detected)
-                    openHand = boundingBoxArea(points);
+
+            for (int index = 0; index < data.Count; index++)
+            {
+                if(openHandArea == -1){
+                    var hand = data.Hands[index];
+                    IList<Point> points = hand.Contour.Points;
+                    if (hand.FingerCount == 5)
+                    { //Takes the area of an open hand(when five fingers are detected)
+                        openHandArea = boundingBoxArea(points);
+                    }
+                }
+                else
+                {
                     
-                }else{
-                    float per = handArea(points) / openHand;
-                    signPercentage = per;
-                    Console.WriteLine(per);
                 }
             }
         }

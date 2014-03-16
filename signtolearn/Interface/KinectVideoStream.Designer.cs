@@ -122,6 +122,8 @@
         }
 
         #endregion
+        private System.ComponentModel.BackgroundWorker BackgroundTrain;
+        private System.ComponentModel.BackgroundWorker BackgroundTest;
         private System.Windows.Forms.PictureBox picVideoDisplay;
         internal System.Windows.Forms.Button buttonSaveExit;
         internal System.Windows.Forms.Label LabelLetter;

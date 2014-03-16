@@ -18,7 +18,7 @@ namespace DAL
             SQLiteDatabase db = new SQLiteDatabase();
             DataTable rawSigns = new DataTable();
 
-            String cmd = String.Format("SELECT Percentage, NumFingers, ClosestPoint, Area from Sign where UserName = {0} and Sign.Letter = {1}", UserName, Letter);
+            String cmd = String.Format("SELECT AreaPercentage, NumFingers, ClosestPoint, Area from Sign where UserName = '{0}' and Sign.Letter = '{1}'", UserName, Letter);
             rawSigns = db.GetDataTable(cmd);
             foreach (DataRow r in rawSigns.Rows)
             {

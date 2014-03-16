@@ -23,7 +23,11 @@ namespace Interface
 
         KinectSensor kinectSensor = null;
         Timer timer = new Timer();
-        AreaGrab AG;
+        System.Threading.Thread t = null;
+
+        // This delegate enables asynchronous calls for setting 
+        // the text property on a TextBox control. 
+        delegate void SetTextCallback(string text);
 
         public KinectVideoStream(String username,Boolean Training)
         {
@@ -36,40 +40,50 @@ namespace Interface
             {
                 currentLetter = DAL.User.GetProgress(UserName);
                 currentLetterProgress = DAL.Sign.GetSignInfo(UserName, currentLetter).Count;
-                Train();
+                t = new System.Threading.Thread(() => Train());
+                t.Start();
+                
+             
             }
             else
             {
                 //testingStart
             }
+            
         }
 
 
         private void Train()
         {
-            char CurrentLetter = DAL.User.GetProgress(UserName);
-            this.LabelLetter.Text = String.Format("{0}",CurrentLetter);
-            this.Text = "Training";
-            AG = new AreaGrab(UserName, CurrentLetter);
-            AG.Start();
+            bool findingOpenHand = true;
 
-            while (AG.IsRunning)
+            char CurrentLetter = DAL.User.GetProgress(UserName);
+            SetTextLetter(String.Format("{0}",CurrentLetter));
+            SetTitle("Training");
+
+            AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
+            AG.Start();
+            
+            while (findingOpenHand)
             {
 
                 if (AG.ReadyForSign)
                 {
-                    timer.Tick += new EventHandler(timer_Tick); // Everytime timer ticks, timer_Tick will be called
+                    timer.Tick += new EventHandler((sender, e) => timer_Tick(sender, e, AG)); // Everytime timer ticks, timer_Tick will be called
                     timer.Interval = (WaitTime) * (1);              // Timer will tick evert second
                     timer.Enabled = true;                       // Enable the timer
                     timer.Start();           
-                    this.UserInstruction.Text = String.Format("Ready for sign, capturing in {0} seconds", WaitTime);    
+                    SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
+                    findingOpenHand = false;
                 }
             }
+             
         }
-        private void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e, AreaGrab AG)
         {
+            
             timer.Stop();
-            this.UserInstruction.Text = "Sign Captured";
+            SetTextInstruction("Sign Captured");
             DialogResult dialogResult = MessageBox.Show("Store this sign?", "Sign Validation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
@@ -90,13 +104,8 @@ namespace Interface
                     }
                 }
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                timer.Start();
-            }
-            
-            
 
+            Train();
         }
         private void PopulateAvailableSensors()
         {
@@ -164,15 +173,65 @@ namespace Interface
             return bitmapFrame;
         }
 
+        private void SetTextInstruction(string text)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (this.UserInstruction.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetTextInstruction);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.UserInstruction.Text = text;
+            }
+        }
+
+        private void SetTextLetter(string text)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (this.UserInstruction.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetTextLetter);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.LabelLetter.Text = text;
+            }
+        }
+
+        private void SetTitle(string text)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (this.UserInstruction.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetTitle);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.Text = text;
+            }
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
+            try
+            {t.Abort();}
+            catch { }
             DeActivateSensor();
         }
 
         private void buttonSaveExit_Click(object sender, EventArgs e)
         {
-            AG.Stop();
             this.Close();
         }
     }

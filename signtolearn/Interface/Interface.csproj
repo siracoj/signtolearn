@@ -179,6 +179,10 @@
       <Project>{e2491798-fb6d-4d6b-82c1-2559533f90f0}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandAreaTest\HandSigns.csproj">
+      <Project>{c76f822b-b380-403f-abcc-e103d18efd7e}</Project>
+      <Name>HandSigns</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\SQLite.Interop.dll">

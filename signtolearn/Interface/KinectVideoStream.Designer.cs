@@ -33,6 +33,7 @@
             this.buttonSaveExit = new System.Windows.Forms.Button();
             this.LabelLetter = new System.Windows.Forms.Label();
             this.LabelShowMe = new System.Windows.Forms.Label();
+            this.UserInstruction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picVideoDisplay)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,12 +86,25 @@
             this.LabelShowMe.TabIndex = 8;
             this.LabelShowMe.Text = "Show me:";
             // 
+            // UserInstruction
+            // 
+            this.UserInstruction.AutoSize = true;
+            this.UserInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserInstruction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.UserInstruction.Location = new System.Drawing.Point(14, 514);
+            this.UserInstruction.Name = "UserInstruction";
+            this.UserInstruction.Size = new System.Drawing.Size(929, 55);
+            this.UserInstruction.TabIndex = 9;
+            this.UserInstruction.Text = "Hold up an open hand in front of the kinect";
+            this.UserInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // KinectVideoStream
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.ClientSize = new System.Drawing.Size(975, 578);
+            this.Controls.Add(this.UserInstruction);
             this.Controls.Add(this.LabelShowMe);
             this.Controls.Add(this.LabelLetter);
             this.Controls.Add(this.buttonSaveExit);
@@ -112,6 +126,7 @@
         internal System.Windows.Forms.Button buttonSaveExit;
         internal System.Windows.Forms.Label LabelLetter;
         internal System.Windows.Forms.Label LabelShowMe;
+        internal System.Windows.Forms.Label UserInstruction;
     }
 }
 

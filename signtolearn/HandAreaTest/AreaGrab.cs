@@ -16,8 +16,9 @@ using System.Threading.Tasks;
 namespace HandSigns
 {
 
-    class AreaGrab{
+    public class AreaGrab{
         public bool ReadyForSign = false;
+        public bool IsRunning = false;
 
         //Properties 
         private char CurrentLetter;
@@ -29,10 +30,10 @@ namespace HandSigns
         private HandDataSource handDataSource;
         private HandData hand;
 
-        public AreaGrab(String username, char currentletter)
+        public AreaGrab(string _UserName, char _CurrentLetter)
         {
-            UserName = username;
-            CurrentLetter = currentletter;
+            UserName = _UserName;
+            CurrentLetter = _CurrentLetter;
             dataSourceFactory = new SDKDataSourceFactory();
             handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
         }
@@ -41,20 +42,26 @@ namespace HandSigns
         {
             //Handles the new data from the kinect
             handDataSource.NewDataAvailable += new NewDataHandler<HandCollection>(handDataSource_NewDataAvailable);
-            handDataSource.Start();   
+            handDataSource.Start();
+            IsRunning = true;
         }
 
-        public SignInfo getSign()
+        public SignInfo getSign() // gets the sign
         {
             if (ReadyForSign)
             {
+                this.Stop(); // Pause datastream while getting these numbers
+
                 float signArea = handArea();
                 float signDistance = ClosestPoint() - openHandDistance;
                 int numFingers = hand.FingerCount;
                 float signPercentage = signArea / openHandArea;
+
+                this.reset(); // reset and restart
+                this.Start();
                 return new SignInfo(CurrentLetter, UserName, signPercentage, numFingers, signDistance, signArea);
             }
-            else
+            else //Don't try to get the sign data until the ready flag is true
             {
                 return null;
             }
@@ -114,9 +121,9 @@ namespace HandSigns
 
         public void Stop()
         {
+            IsRunning = false;
             ReadyForSign = false;
             handDataSource.Stop();
-            handDataSource.Dispose();
         }
 
         /*private float boundingBoxArea() //Gets the square around the users hand 

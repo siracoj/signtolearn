@@ -27,6 +27,14 @@ namespace DAL
             return retVal;
         }
 
+        public static bool SetProgress(String UserName, char Letter)
+        {
+            SQLiteDatabase db = new SQLiteDatabase();
+            Dictionary<String, String> data = new Dictionary<string, string>();
+            data.Add("TrainingProgress", Char.ToString(Letter));
+            return db.Update("User", data, String.Format("UserName = {0}", UserName));
+        }
+
         public static String GetName(String UserName)
         {   //gets a users first and last name from the database
             SQLiteDatabase db = new SQLiteDatabase();

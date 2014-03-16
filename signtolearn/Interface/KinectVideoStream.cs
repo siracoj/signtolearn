@@ -14,9 +14,16 @@ using HandSigns;
 namespace Interface
 {
     public partial class KinectVideoStream : Form
-    {
-        KinectSensor kinectSensor = null;
+    {      
         String UserName;
+
+        int WaitTime = 3000; // 3 seconds by default
+        char currentLetter;
+        int currentLetterProgress = 0; //Letter needs to be signed 10 times.
+
+        KinectSensor kinectSensor = null;
+        Timer timer = new Timer();
+        AreaGrab AG;
 
         public KinectVideoStream(String username,Boolean Training)
         {
@@ -24,9 +31,11 @@ namespace Interface
             PopulateAvailableSensors();
             Start();
             UserName = username;
-
+           
             if (Training)
             {
+                currentLetter = DAL.User.GetProgress(UserName);
+                currentLetterProgress = DAL.Sign.GetSignInfo(UserName, currentLetter).Count;
                 Train();
             }
             else
@@ -38,13 +47,59 @@ namespace Interface
 
         private void Train()
         {
-            this.LabelLetter.Text = String.Format("{0}",DAL.User.GetProgress(UserName));
+            char CurrentLetter = DAL.User.GetProgress(UserName);
+            this.LabelLetter.Text = String.Format("{0}",CurrentLetter);
             this.Text = "Training";
+            AG = new AreaGrab(UserName, CurrentLetter);
+            AG.Start();
+
+            while (AG.IsRunning)
+            {
+
+                if (AG.ReadyForSign)
+                {
+                    timer.Tick += new EventHandler(timer_Tick); // Everytime timer ticks, timer_Tick will be called
+                    timer.Interval = (WaitTime) * (1);              // Timer will tick evert second
+                    timer.Enabled = true;                       // Enable the timer
+                    timer.Start();           
+                    this.UserInstruction.Text = String.Format("Ready for sign, capturing in {0} seconds", WaitTime);    
+                }
+            }
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            this.UserInstruction.Text = "Sign Captured";
+            DialogResult dialogResult = MessageBox.Show("Store this sign?", "Sign Validation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DAL.Sign.AddSign(AG.getSign());
+                currentLetterProgress++;
+                if (currentLetterProgress >= 10) //checks if the current letter is complete
+                {
+                    if (currentLetter == 'Z')
+                    {
+                        MessageBox.Show("Training Complete!");
+                        AG.Stop();
+                        this.Close();
+                    }
+                    else
+                    {
+                        currentLetter++;
+                        DAL.User.SetProgress(UserName, currentLetter);
+                    }
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                timer.Start();
+            }
+            
+            
 
         }
         private void PopulateAvailableSensors()
         {
-
             foreach (KinectSensor sensor in KinectSensor.KinectSensors)
             {
                 kinectSensor = sensor;
@@ -117,6 +172,7 @@ namespace Interface
 
         private void buttonSaveExit_Click(object sender, EventArgs e)
         {
+            AG.Stop();
             this.Close();
         }
     }

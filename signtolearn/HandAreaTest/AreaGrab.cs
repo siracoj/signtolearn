@@ -17,43 +17,47 @@ namespace HandSigns
 {
 
     class AreaGrab{
-        //Properties 
-        int numFingers;
-        float signPercentage;
-        float signArea;
-        float signDistance;
+        public bool ReadyForSign = false;
 
+        //Properties 
         private char CurrentLetter;
         private String UserName;
 
         private float openHandArea = -1;
-        private float openHandDistance;
+        private float openHandDistance = -1;
         private IDataSourceFactory dataSourceFactory;
         private HandDataSource handDataSource;
-        
+        private HandData hand;
 
-        public void Start(String username, char currentletter)
+        public AreaGrab(String username, char currentletter)
         {
             UserName = username;
             CurrentLetter = currentletter;
             dataSourceFactory = new SDKDataSourceFactory();
             handDataSource = new HandDataSource(dataSourceFactory.CreateShapeDataSource(), new HandDataSourceSettings());
-
+        }
+        
+        public void Start()
+        {
             //Handles the new data from the kinect
             handDataSource.NewDataAvailable += new NewDataHandler<HandCollection>(handDataSource_NewDataAvailable);
-            handDataSource.Start();
-            
+            handDataSource.Start();   
         }
 
         public SignInfo getSign()
         {
-            return new SignInfo(CurrentLetter, UserName, signPercentage, numFingers, signDistance, signArea);
-        }
-
-        public void Stop()
-        {
-            handDataSource.Stop();
-            handDataSource.Dispose();
+            if (ReadyForSign)
+            {
+                float signArea = handArea();
+                float signDistance = ClosestPoint() - openHandDistance;
+                int numFingers = hand.FingerCount;
+                float signPercentage = signArea / openHandArea;
+                return new SignInfo(CurrentLetter, UserName, signPercentage, numFingers, signDistance, signArea);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void handDataSource_NewDataAvailable(HandCollection data)
@@ -61,22 +65,21 @@ namespace HandSigns
 
             for (int index = 0; index < data.Count; index++)
             {
-                if(openHandArea == -1){
-                    var hand = data.Hands[index];
-                    IList<Point> points = hand.Contour.Points;
+                if(!ReadyForSign){
+                    hand = data.Hands[index];
                     if (hand.FingerCount == 5)
                     { //Takes the area of an open hand(when five fingers are detected)
-                        openHandArea = boundingBoxArea(points);
+                        openHandArea = handArea();
+                        openHandDistance = ClosestPoint();
+                        ReadyForSign = true;
                     }
-                }
-                else
-                {
-                    
                 }
             }
         }
-        private float handArea(IList<Point> points) // Takes the points of the contour of the hand and finds its area
+
+        private float handArea() // Takes the points of the contour of the hand and finds its area
         {
+            IList<Point> points = hand.Contour.Points;
             float area = 0;
             int j = points.Count - 1;
             for (int i = 0; i < points.Count; i++){
@@ -86,8 +89,39 @@ namespace HandSigns
             return area / 2;
         }
 
-        private float boundingBoxArea(IList<Point> points) //Gets the square around the users hand 
+        private float ClosestPoint()
         {
+            IList<Point> points = hand.Contour.Points;
+            float closest = points[0].Z;
+
+            foreach (Point point in points)
+            {
+                if (closest > point.Z)
+                {
+                    closest = point.Z;
+                }
+            }
+
+            return closest;
+        }
+
+        public void reset()
+        {
+            openHandArea = -1;
+            openHandDistance = -1;
+            ReadyForSign = false;
+        }
+
+        public void Stop()
+        {
+            ReadyForSign = false;
+            handDataSource.Stop();
+            handDataSource.Dispose();
+        }
+
+        /*private float boundingBoxArea() //Gets the square around the users hand 
+        {
+            IList<Point> points = hand.Contour.Points;
             Point minX = points[0], minY = points[0], maxX = points[0], maxY = points[0];
             IList<Point> square = new List<Point>();
 
@@ -116,6 +150,6 @@ namespace HandSigns
             square.Add(minY);
 
             return handArea(square);
-        }
+        }*/
     }
 }

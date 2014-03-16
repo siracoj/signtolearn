@@ -26,7 +26,7 @@ namespace Interface
             }
             catch (Exception x)
             {
-                MessageBox.Show(String.Format("Could not connect to database", x.Message));
+                MessageBox.Show(String.Format("Could not connect to database\n{0}", x.Message));
                 this.Close();
             }
         }

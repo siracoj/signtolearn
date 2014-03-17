@@ -19,6 +19,7 @@ namespace Interface
     public partial class KinectVideoStream : Form
     {      
         String UserName;
+        char CurrentLetter;
 
         int WaitTime = 3000; // 3 seconds by default
         
@@ -89,13 +90,13 @@ namespace Interface
 
         private void Train()
         {  
-            char CurrentLetter =   User.GetProgress(UserName);
-            SetTextLetter(Char.ToString(CurrentLetter));
+            this.CurrentLetter =   User.GetProgress(UserName);
+            SetTextLetter(Char.ToString(this.CurrentLetter));
 
-            int currentLetterProgress =   Sign.GetSignInfo(UserName, CurrentLetter).Count;
+            int currentLetterProgress =   Sign.GetSignInfo(UserName, this.CurrentLetter).Count;
             SetTitle("Training");
 
-            AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
+            AreaGrab AG = new AreaGrab(UserName, this.CurrentLetter);
             AG.Start();
 
             while (true)
@@ -104,13 +105,13 @@ namespace Interface
                 {
                     SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
                     Thread.Sleep(WaitTime);
-                    CaptureSign(AG, CurrentLetter, currentLetterProgress);
+                    CaptureSign(AG, currentLetterProgress);
 
                 }
             }
              
         }
-        private void CaptureSign(AreaGrab AG, char CurrentLetter, int currentLetterProgress)
+        private void CaptureSign(AreaGrab AG, int currentLetterProgress)
         {
             SignInfo sign = AG.getSign();
             SetTextInstruction("Sign Captured");
@@ -121,17 +122,17 @@ namespace Interface
                 currentLetterProgress++;
                 if (currentLetterProgress >= 10) //checks if the current letter is complete
                 {
-                    if (CurrentLetter == 'Z')
+                    if (this.CurrentLetter == 'Z')
                     {
                         MessageBox.Show("Training Complete!"); //ends training at Z
-                        AG.Stop();
+                        AG.reset();
                         this.Close();
                     }
                     else
                     {
-                        CurrentLetter++;
-                        User.SetProgress(UserName, CurrentLetter); //Updates user progress
-                        SetTextLetter(Char.ToString(CurrentLetter));
+                        this.CurrentLetter++;
+                        User.SetProgress(UserName, this.CurrentLetter); //Updates user progress
+                        SetTextLetter(Char.ToString(this.CurrentLetter));
                     }
                 }
             }
@@ -199,6 +200,7 @@ namespace Interface
             Marshal.Copy(pixelBuffer, 0, intPointer, colorFrame.PixelDataLength);
 
             bitmapFrame.UnlockBits(bitmapData);
+            colorFrame.Dispose();
 
             return bitmapFrame;
         }
@@ -264,9 +266,6 @@ namespace Interface
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            try
-            {t.Abort();}
-            catch { }
             DeActivateSensor();
         }
 

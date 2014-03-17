@@ -119,51 +119,22 @@ namespace HandSigns
 
         public void reset()
         {
-            openHandArea = -1;
-            openHandDistance = -1;
-            ReadyForSign = false;
-            handDataSource.Dispose();
+            this.Stop();
             this.Start();
         }
 
         public void Stop()
         {
-            IsRunning = false;
+            openHandArea = -1;
+            openHandDistance = -1;
             ReadyForSign = false;
+            //dataSourceFactory.Dispose();
             handDataSource.Stop();
+            handDataSource.NewDataAvailable -= new NewDataHandler<HandCollection>(handDataSource_NewDataAvailable);
+            handDataSource.Dispose();
+            hand = null;
         }
 
-        /*private float boundingBoxArea() //Gets the square around the users hand 
-        {
-            IList<Point> points = hand.Contour.Points;
-            Point minX = points[0], minY = points[0], maxX = points[0], maxY = points[0];
-            IList<Point> square = new List<Point>();
-
-            for (int i = 1; i < points.Count; i++)
-            {
-                if (points[i].X < maxX.X)
-                {
-                    maxX = points[i];
-                }
-                if (points[i].X > minX.X)
-                {
-                    minX = points[i];
-                }
-                if (points[i].Y < maxY.Y)
-                {
-                    maxY = points[i];
-                }
-                if (points[i].Y > minY.Y)
-                {
-                    minY = points[i];
-                }
-            }
-            square.Add(maxX);
-            square.Add(maxY);
-            square.Add(minX);
-            square.Add(minY);
-
-            return handArea(square);
-        }*/
+       
     }
 }

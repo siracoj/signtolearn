@@ -32,7 +32,7 @@ namespace DAL
             SQLiteDatabase db = new SQLiteDatabase();
             Dictionary<String, String> data = new Dictionary<string, string>();
             data.Add("TrainingProgress", Char.ToString(Letter));
-            return db.Update("User", data, String.Format("UserName = {0}", UserName));
+            return db.Update("User", data, String.Format("UserName = '{0}'", UserName));
         }
 
         public static String GetName(String UserName)

@@ -47,12 +47,24 @@ namespace DAL
         }
     }
 
-    public class SignInfo : AlphabetInfo
+    public class SignInfo 
     {   //data structure to hold all information to recognize a sign
-        public SignInfo(char _Letter, String _UserName, double _Percentage, int _NumFingers, double _ClosestPoint, double _Area) : base(_Letter, _NumFingers, _ClosestPoint, _Percentage)
+        public char Letter { get; private set; }
+        public int NumFingers { get; private set; }
+        public double ClosestPoint { get; private set; }
+        public double Percentage { get; private set; }
+        public String UserName { get; private set; }
+        public double Area { get; private set; }
+
+
+        public SignInfo(char _Letter, String _UserName, double _Percentage, int _NumFingers, double _ClosestPoint, double _Area)
         {
             UserName = _UserName;
             Area = _Area;
+            Letter = _Letter;
+            NumFingers = _NumFingers;
+            ClosestPoint = _ClosestPoint;
+            Percentage = _Percentage;
         }
 
         public bool CheckSign()
@@ -69,8 +81,5 @@ namespace DAL
             return (error < (1+threshold) && error > (1-threshold));
 
         }
-
-        public String UserName { get; private set; }
-        public double Area { get; private set; }
     }
 }

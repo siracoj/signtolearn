@@ -90,10 +90,12 @@ namespace Interface
 
         private void Train()
         {  
-            this.CurrentLetter =   User.GetProgress(UserName);
-            SetTextLetter(Char.ToString(this.CurrentLetter));
+            char cl =   User.GetProgress(UserName);
+            SetTextLetter(Char.ToString(cl));
 
             int currentLetterProgress =   Sign.GetSignInfo(UserName, this.CurrentLetter).Count;
+
+           
             SetTitle("Training");
 
             AreaGrab AG = new AreaGrab(UserName, this.CurrentLetter);
@@ -103,15 +105,17 @@ namespace Interface
             {
                 if (AG.ReadyForSign)
                 {
+                    cl = User.GetProgress(UserName);
+                    currentLetterProgress = Sign.GetSignInfo(UserName, this.CurrentLetter).Count;
                     SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
                     Thread.Sleep(WaitTime);
-                    CaptureSign(AG, currentLetterProgress);
+                    CaptureSign(AG, currentLetterProgress, cl);
 
                 }
             }
              
         }
-        private void CaptureSign(AreaGrab AG, int currentLetterProgress)
+        private void CaptureSign(AreaGrab AG, int currentLetterProgress, char cl)
         {
             SignInfo sign = AG.getSign();
             SetTextInstruction("Sign Captured");
@@ -119,7 +123,6 @@ namespace Interface
             if (dialogResult == DialogResult.Yes)
             {
                 Sign.AddSign(sign);
-                currentLetterProgress++;
                 if (currentLetterProgress >= 10) //checks if the current letter is complete
                 {
                     if (this.CurrentLetter == 'Z')
@@ -130,9 +133,9 @@ namespace Interface
                     }
                     else
                     {
-                        this.CurrentLetter++;
-                        User.SetProgress(UserName, this.CurrentLetter); //Updates user progress
-                        SetTextLetter(Char.ToString(this.CurrentLetter));
+                        cl++;
+                        User.SetProgress(UserName, cl); //Updates user progress
+                        SetTextLetter(Char.ToString(cl));
                     }
                 }
             }
@@ -234,6 +237,7 @@ namespace Interface
             else
             {
                 this.LabelLetter.Text = text;
+                this.CurrentLetter = text.ToCharArray()[0];
             }
         }
 
@@ -256,8 +260,8 @@ namespace Interface
         private char GetTestLetter()
         {
             Random random = new Random();
-            // This method returns a random lowercase letter
-            // ... Between 'a' and 'z' inclusize.
+            // This method returns a random uppercase letter
+            // ... Between 'A' and 'Z' inclusize.
             int num = random.Next(0, 26); // Zero to 25
             char let = (char)('A' + num);
             return let;
@@ -273,5 +277,11 @@ namespace Interface
         {
             this.Close();
         }
+
+       /* private void LabelLetter_Click(object sender, EventArgs e)
+        {
+            Application.Run(new VideoPlayer(String.Format("TrainingVideos/{0}.mp4", this.LabelLetter.Text)));
+
+        } */     
     }
 }

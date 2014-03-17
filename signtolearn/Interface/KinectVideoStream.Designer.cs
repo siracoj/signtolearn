@@ -74,6 +74,7 @@
             this.LabelLetter.TabIndex = 7;
             this.LabelLetter.Text = "S";
             this.LabelLetter.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            //this.LabelLetter.Click += new System.EventHandler(this.LabelLetter_Click);
             // 
             // LabelShowMe
             // 

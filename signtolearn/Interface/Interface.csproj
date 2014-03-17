@@ -141,7 +141,6 @@
     <Compile Include="UserHomePage.Designer.cs">
       <DependentUpon>UserHomePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoSurface.cs" />
     <EmbeddedResource Include="CreateProfile.resx">
       <DependentUpon>CreateProfile.cs</DependentUpon>
     </EmbeddedResource>

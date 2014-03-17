@@ -75,5 +75,11 @@ namespace DAL
             db.Insert("User", data);
             return true;
         }
+        public static void DeleteProfile(String UserName)
+        {
+            SQLiteDatabase db = new SQLiteDatabase();
+            db.Delete("Sign", String.Format("UserName = '{0}'", UserName));
+            db.Delete("User", String.Format("UserName = '{0}'", UserName));
+        }
     }
 }

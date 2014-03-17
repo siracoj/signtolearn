@@ -43,16 +43,52 @@ namespace Interface
             }
             else
             {
-                //testingStart
+                t = new Thread(() => Test());
+                t.Start();
             }
             
         }
+        private void Test()
+        {
+            char CurrentLetter = GetTestLetter();
+            SetTextLetter(Char.ToString(CurrentLetter));
+            SetTitle("Testing");
 
+            AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
+            AG.Start();
+
+            while (true)
+            {
+                if (AG.ReadyForSign)
+                {
+                    SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime / 1000));
+                    Thread.Sleep(WaitTime);
+                    TestSign(AG, CurrentLetter);
+                }
+            }
+        }
+
+        private void TestSign(AreaGrab AG, char CurrentLetter)
+        {
+            SignInfo sign = AG.getSign();
+            SetTextInstruction("Sign Captured");
+
+            if (sign.CheckSign())
+            {
+                MessageBox.Show("Correct!");
+                Sign.AddSign(sign);          //adds correct signs to make it more accurate
+            }
+            else
+            {
+                MessageBox.Show("Incorrect");
+            }
+
+
+            SetTextInstruction("Hold up an open hand in front of the kinect");
+        }
 
         private void Train()
-        {
-            bool running = true;
-
+        {  
             char CurrentLetter =   User.GetProgress(UserName);
             SetTextLetter(Char.ToString(CurrentLetter));
 
@@ -62,15 +98,14 @@ namespace Interface
             AreaGrab AG = new AreaGrab(UserName, CurrentLetter);
             AG.Start();
 
-            while (running)
+            while (true)
             {
                 if (AG.ReadyForSign)
                 {
-                            
                     SetTextInstruction(String.Format("Ready for sign, capturing in {0} seconds", WaitTime/1000));
                     Thread.Sleep(WaitTime);
                     CaptureSign(AG, CurrentLetter, currentLetterProgress);
-                    AG.Start();
+
                 }
             }
              
@@ -88,14 +123,14 @@ namespace Interface
                 {
                     if (CurrentLetter == 'Z')
                     {
-                        MessageBox.Show("Training Complete!");
+                        MessageBox.Show("Training Complete!"); //ends training at Z
                         AG.Stop();
                         this.Close();
                     }
                     else
                     {
                         CurrentLetter++;
-                        User.SetProgress(UserName, CurrentLetter);
+                        User.SetProgress(UserName, CurrentLetter); //Updates user progress
                         SetTextLetter(Char.ToString(CurrentLetter));
                     }
                 }
@@ -214,6 +249,16 @@ namespace Interface
             {
                 this.Text = text;
             }
+        }
+
+        private char GetTestLetter()
+        {
+            Random random = new Random();
+            // This method returns a random lowercase letter
+            // ... Between 'a' and 'z' inclusize.
+            int num = random.Next(0, 26); // Zero to 25
+            char let = (char)('A' + num);
+            return let;
         }
 
         protected override void OnClosing(CancelEventArgs e)

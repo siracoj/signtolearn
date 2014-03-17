@@ -39,8 +39,6 @@
             this.progressIncrement8 = new System.Windows.Forms.PictureBox();
             this.progressIncrement9 = new System.Windows.Forms.PictureBox();
             this.progressIncrement10 = new System.Windows.Forms.PictureBox();
-            this.Label1 = new System.Windows.Forms.Label();
-            this.labelBestScore = new System.Windows.Forms.Label();
             this.labelTrainingProgressPercentage = new System.Windows.Forms.Label();
             this.labelProgress = new System.Windows.Forms.Label();
             this.progressBarBody = new System.Windows.Forms.PictureBox();
@@ -160,28 +158,6 @@
             this.progressIncrement10.TabIndex = 36;
             this.progressIncrement10.TabStop = false;
             // 
-            // Label1
-            // 
-            this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Label1.Location = new System.Drawing.Point(498, 329);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(29, 31);
-            this.Label1.TabIndex = 35;
-            this.Label1.Text = "0";
-            // 
-            // labelBestScore
-            // 
-            this.labelBestScore.AutoSize = true;
-            this.labelBestScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBestScore.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelBestScore.Location = new System.Drawing.Point(345, 329);
-            this.labelBestScore.Name = "labelBestScore";
-            this.labelBestScore.Size = new System.Drawing.Size(169, 31);
-            this.labelBestScore.TabIndex = 34;
-            this.labelBestScore.Text = "Best   Score:";
-            // 
             // labelTrainingProgressPercentage
             // 
             this.labelTrainingProgressPercentage.AutoSize = true;
@@ -268,8 +244,6 @@
             this.Controls.Add(this.progressIncrement8);
             this.Controls.Add(this.progressIncrement9);
             this.Controls.Add(this.progressIncrement10);
-            this.Controls.Add(this.Label1);
-            this.Controls.Add(this.labelBestScore);
             this.Controls.Add(this.labelTrainingProgressPercentage);
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.progressBarBody);
@@ -307,8 +281,6 @@
         internal System.Windows.Forms.PictureBox progressIncrement8;
         internal System.Windows.Forms.PictureBox progressIncrement9;
         internal System.Windows.Forms.PictureBox progressIncrement10;
-        internal System.Windows.Forms.Label Label1;
-        internal System.Windows.Forms.Label labelBestScore;
         internal System.Windows.Forms.Label labelTrainingProgressPercentage;
         internal System.Windows.Forms.Label labelProgress;
         internal System.Windows.Forms.PictureBox progressBarBody;

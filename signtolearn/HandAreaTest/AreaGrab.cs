@@ -123,6 +123,7 @@ namespace HandSigns
             openHandDistance = -1;
             ReadyForSign = false;
             handDataSource.Dispose();
+            this.Start();
         }
 
         public void Stop()

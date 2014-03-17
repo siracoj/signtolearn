@@ -18,18 +18,23 @@ namespace Interface
             InitializeComponent();
             try
             {
-                foreach (String s in DAL.User.GetUserNames())
-                {
-                    listBoxProfiles.Items.Add(s);
-                }
-                if (listBoxProfiles.Items.Count > 0)
-                {
-                    listBoxProfiles.SetSelected(0, true);
-                }
+                GetProfiles();
             }
             catch (Exception x)
             {
                 MessageBox.Show(String.Format("Could not connect to database\n {0}", x.Message));
+            }
+        }
+
+        private void GetProfiles()
+        {
+            foreach (String s in DAL.User.GetUserNames())
+            {
+                listBoxProfiles.Items.Add(s);
+            }
+            if (listBoxProfiles.Items.Count > 0)
+            {
+                listBoxProfiles.SetSelected(0, true);
             }
         }
 
@@ -51,6 +56,13 @@ namespace Interface
         private static void OpenProfile(String UserName)
         {
             Application.Run(new UserHomePage(UserName));
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            DAL.User.DeleteProfile(listBoxProfiles.SelectedItem.ToString());
+            listBoxProfiles.Items.Clear();
+            GetProfiles();
         }
     }
 }

@@ -55,6 +55,21 @@ namespace DAL
             Area = _Area;
         }
 
+        public bool CheckSign()
+        {
+            double error = 0;
+            double threshold = .5;
+            IList<SignInfo> signs = DAL.Sign.GetSignInfo(this.UserName, this.Letter);
+            foreach (SignInfo sign in signs)
+            {
+                error += sign.Percentage / this.Percentage;
+            }
+            error = error / signs.Count;
+
+            return (error < (1+threshold) && error > (1-threshold));
+
+        }
+
         public String UserName { get; private set; }
         public double Area { get; private set; }
     }
